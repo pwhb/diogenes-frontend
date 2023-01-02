@@ -1,0 +1,5 @@
+@localhost_url =  http://[::1]:5173
+
+###
+GET {{localhost_url}}/api/chat 
+
