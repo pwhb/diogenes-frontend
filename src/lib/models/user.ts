@@ -10,6 +10,7 @@ interface IUser {
     banner?: string;
     bio?: string;
     isActive: boolean;
+    role: string;
 }
 
 
@@ -21,6 +22,7 @@ const userSchema = new Schema<IUser>({
     banner: { type: String, required: false },
     bio: { type: String, required: false },
     isActive: { type: Boolean, required: true, default: true },
+    role: { type: String, required: true, default: "player" }
 }, { timestamps: true });
 
 export default models.User || model('User', userSchema)
