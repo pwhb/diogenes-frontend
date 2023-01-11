@@ -1,7 +1,6 @@
 import { fail, redirect } from "@sveltejs/kit"
 import type { Action, Actions } from "./$types"
 import user from "$lib/models/user";
-import { getJwt } from "$lib/utils/jwt";
 import { hash, } from "argon2"
 import dbConnect from "$lib/database/connectDB";
 
@@ -35,10 +34,8 @@ const register: Action = async ({ request, cookies }) => {
 
 
     const hashedPassword = await hash(password as string)
-    // const isCorrect = await verify(hashedPassword, password)
-    const { role, avatar } = await user.create({ username, password: hashedPassword })
 
-    const token = getJwt({ username, role, avatar })
+    const { token } = await user.create({ username, password: hashedPassword, token: crypto.randomUUID() })
 
     cookies.set("token", token, {
         httpOnly: true,

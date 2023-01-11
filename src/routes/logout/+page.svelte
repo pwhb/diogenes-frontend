@@ -15,7 +15,7 @@
 				<h2 class="card-title">Sign in to your account</h2>
 			</div>
 
-			<form action="?/login" method="POST">
+			<form action="?/register" method="POST">
 				<div class="form-control">
 					<label class="label" for="username">
 						<span class="label-text">Username</span>

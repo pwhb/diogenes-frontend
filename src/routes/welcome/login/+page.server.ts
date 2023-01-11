@@ -37,9 +37,7 @@ const login: Action = async ({ request, cookies }) => {
         return fail(400, { invalid, previous })
     }
 
-    const { role, avatar } = oldUser
-
-    const token = getJwt({ username, role, avatar })
+    const { token } = await user.findByIdAndUpdate(oldUser._id, { token: crypto.randomUUID() })
 
     cookies.set("token", token, {
         httpOnly: true,
