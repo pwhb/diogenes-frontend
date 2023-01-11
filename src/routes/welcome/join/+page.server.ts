@@ -3,6 +3,13 @@ import type { Action, Actions } from "./$types"
 import user from "$lib/models/user";
 import { hash, } from "argon2"
 import dbConnect from "$lib/database/connectDB";
+import type { LayoutServerLoad } from "../../$types";
+
+export const load: LayoutServerLoad = async ({ locals }) => {
+    if (locals.user) {
+        throw redirect(302, "/home")
+    }
+}
 
 const register: Action = async ({ request, cookies }) => {
     const data = await request.formData()
@@ -51,5 +58,5 @@ const register: Action = async ({ request, cookies }) => {
 }
 
 export const actions: Actions = {
-    register
+    default: register
 }

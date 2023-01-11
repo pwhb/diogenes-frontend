@@ -12,5 +12,5 @@ const logout: Action = async ({ cookies }) => {
 }
 
 export const actions: Actions = {
-    logout
+    default: logout
 }

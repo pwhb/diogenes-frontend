@@ -1,3 +1,4 @@
+import dbConnect from "$lib/database/connectDB";
 import user from "$lib/models/user";
 import type { Handle } from "@sveltejs/kit";
 
@@ -9,6 +10,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         return await resolve(event)
     }
     try {
+        await dbConnect()
         const loggedInUser = await user.findOne({ token }).select({ _id: 0, username: 1, role: 1, avatar: 1 }).lean()
         console.log(loggedInUser)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

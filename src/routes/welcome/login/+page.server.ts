@@ -1,9 +1,15 @@
 import { fail, redirect } from "@sveltejs/kit"
 import type { Action, Actions } from "./$types"
 import user from "$lib/models/user";
-import { getJwt } from "$lib/utils/jwt";
 import { verify } from "argon2"
 import dbConnect from "$lib/database/connectDB";
+import type { LayoutServerLoad } from "../../$types";
+
+export const load: LayoutServerLoad = async ({ locals }) => {
+    if (locals.user) {
+        throw redirect(302, "/home")
+    }
+}
 
 const login: Action = async ({ request, cookies }) => {
     const data = await request.formData()
@@ -37,7 +43,7 @@ const login: Action = async ({ request, cookies }) => {
         return fail(400, { invalid, previous })
     }
 
-    const { token } = await user.findByIdAndUpdate(oldUser._id, { token: crypto.randomUUID() })
+    const { token } = await user.findByIdAndUpdate(oldUser._id, { token: crypto.randomUUID() }, { new: true })
 
     cookies.set("token", token, {
         httpOnly: true,
@@ -53,5 +59,5 @@ const login: Action = async ({ request, cookies }) => {
 }
 
 export const actions: Actions = {
-    login
+    default: login
 }

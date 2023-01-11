@@ -15,7 +15,7 @@
 				<h2 class="card-title">Create an account</h2>
 			</div>
 
-			<form action="?/register" method="POST">
+			<form action="" method="POST">
 				<div class="form-control">
 					<label class="label" for="username">
 						<span class="label-text">Username</span>
