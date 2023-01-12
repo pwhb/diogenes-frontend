@@ -12,6 +12,7 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
+		"@iconify/svelte": "^3.0.1",
 		"@sveltejs/adapter-auto": "^1.0.0",
 		"@sveltejs/kit": "^1.0.0",
 		"@types/jsonwebtoken": "^9.0.0",
@@ -23,7 +24,6 @@
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"jsonwebtoken": "^9.0.0",
 		"mongoose": "^6.8.2",
 		"postcss": "^8.4.20",
 		"prettier": "^2.8.0",

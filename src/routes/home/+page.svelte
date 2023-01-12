@@ -1,8 +1,7 @@
 <script>
-
-	import { page } from "$app/stores";
-
+	import { page } from '$app/stores';
 </script>
+
 <h1>Home</h1>
 
 {#if $page.data.user}
@@ -11,3 +10,5 @@
 		<button type="submit">Log out</button>
 	</form>
 {/if}
+
+
