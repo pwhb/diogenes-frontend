@@ -13,7 +13,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         await dbConnect()
         const loggedInUser = await user.findOne({ token }).select({ _id: 0, username: 1, role: 1, avatar: 1 }).lean()
         console.log(loggedInUser)
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+       
         event.locals.user = loggedInUser
 
     } catch (err) {

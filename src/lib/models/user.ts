@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const { Schema, model, models } = mongoose
 
-interface IUser {
+export interface IUser {
     username: string;
     password: string;
     email?: string;
