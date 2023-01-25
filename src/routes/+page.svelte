@@ -1,8 +1,8 @@
 <script>
 	import { page } from '$app/stores';
-
-	// const user = JSON.parse($page.data.user);
 </script>
+
+<h1>Root</h1>
 
 {#if $page.data.user}
 	<p>Welcome {$page.data.user.username}</p>
@@ -10,3 +10,5 @@
 		<button type="submit">Log out</button>
 	</form>
 {/if}
+
+
