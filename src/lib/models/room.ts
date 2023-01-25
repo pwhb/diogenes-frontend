@@ -10,10 +10,12 @@ export interface IRoom {
 
 const roomSchema = new Schema<IRoom>(
 	{
-		members: {
-			type: [Schema.Types.ObjectId],
-			default: []
-		},
+		members: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'User'
+			}
+		],
 		type: {
 			type: String,
 			default: 'private'
@@ -27,24 +29,3 @@ const roomSchema = new Schema<IRoom>(
 );
 
 export default models.Room || model('Room', roomSchema);
-
-// const roomSchema = mongoose.Schema({
-// 	user1: {
-// 		type: mongoose.Schema.Types.ObjectId,
-// 		required: true,
-// 		ref: 'Room'
-// 	},
-// 	user2: {
-// 		type: mongoose.Schema.Types.ObjectId,
-// 		required: true,
-// 		ref: 'Room'
-// 	},
-// 	user1SuperLikeUser2: Boolean,
-// 	user2SuperLikeUser1: Boolean,
-// 	matchedAt: { type: Date, default: new Date() },
-// 	lastUpdatedAt: { type: Date, default: new Date() }
-// });
-
-// const Room = mongoose.model('Room', roomSchema);
-
-// export default Room;

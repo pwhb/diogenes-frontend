@@ -1,4 +1,4 @@
-export const pushOrCreateArray = (array: any[], item: any) => {
+export const safePush = (array: any[], item: any) => {
 	if (array) {
 		array.push(item);
 	} else {
@@ -6,11 +6,19 @@ export const pushOrCreateArray = (array: any[], item: any) => {
 	}
 };
 
-export const checkAndPushOrCreateArray = (array: any[], item: any) => {
+export const checkAndSafePush = (array: any[], item: any) => {
 	if (array && !array.includes(item)) {
 		array.push(item);
-	} else {
+	} else if (!array) {
 		array = [item];
+	}
+};
+
+export const checkAndSafePop = (array: any[], item: any) => {
+	if (array && array.includes(item)) {
+		array = array.filter((val) => val != item);
+	} else if (!array) {
+		array = [];
 	}
 };
 

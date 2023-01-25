@@ -17,8 +17,17 @@ export const handle: Handle = async ({ event, resolve }) => {
 				role: true,
 				avatar: true,
 				friends: true,
-				following: true
+				following: true,
+				rooms: true
 			})
+			.populate({
+				path: 'rooms',
+				populate: {
+					path: 'members',
+					select: 'username avatar'
+				}
+			})
+			// .populate('rooms')
 			.lean();
 		console.log(loggedInUser);
 

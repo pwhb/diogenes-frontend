@@ -1,63 +1,45 @@
 import dbConnect from '$lib/database/connectDB';
 import room from '$lib/models/room';
 import user from '$lib/models/user';
-import { checkAndPushOrCreateArray, pushOrCreateArray } from '$lib/utils/push';
+import { checkAndSafePush, safePush } from '$lib/utils/array';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ locals, request }: RequestEvent) => {
 	try {
 		await dbConnect();
+
+		const response = { follow: false, friend: false, success: false };
 		const { username } = locals.user;
 		const { id } = await request.json();
-		console.log(`${username} wants to follows ${id}`);
+		console.log(`${username} wants to follow ${id}`);
 
 		const userFollowing = await user.findOne({ username });
 		const userFollowed = await user.findById(id);
 		if (!userFollowed) {
 			return json({ message: "user you're trying to follow doesn't exist." }, { status: 404 });
 		}
-		// if (userFollowing.following && !userFollowing.following.includes(userFollowed._id)) {
-		// 	userFollowing.following.push(userFollowed._id);
-		// } else {
-		// 	userFollowing.following = [userFollowed._id];
-		// }
-		checkAndPushOrCreateArray(userFollowing.following, userFollowed._id);
+
+		checkAndSafePush(userFollowing.following, userFollowed._id);
+		checkAndSafePush(userFollowed.followed, userFollowing._id);
+		response.follow = true;
 
 		if (userFollowed.following && userFollowed.following.includes(userFollowing._id)) {
-			// if (userFollowed.friends && !userFollowed.friends.includes(userFollowing._id)) {
-			// 	userFollowed.friends.push(userFollowing._id);
-			// } else {
-			// 	userFollowed.friends = [userFollowing._id];
-			// }
-			checkAndPushOrCreateArray(userFollowed.friends, userFollowing._id);
-			checkAndPushOrCreateArray(userFollowing.friends, userFollowed._id);
-			// if (userFollowing.friends && !userFollowing.friends.includes(userFollowed._id)) {
-			// 	userFollowing.friends.push(userFollowed._id);
-			// } else {
-			// 	userFollowing.friends = [userFollowed._id];
-			// }
+			checkAndSafePush(userFollowed.friends, userFollowing._id);
+			checkAndSafePush(userFollowing.friends, userFollowed._id);
 
 			const newRoom = await room.create({ members: [userFollowed._id, userFollowing._id] });
-			pushOrCreateArray(userFollowed.rooms, newRoom._id)
-			pushOrCreateArray(userFollowing.rooms, newRoom._id)
-			// if (userFollowed.rooms) {
-			// 	userFollowed.rooms.push(newRoom._id);
-			// } else {
-			// 	userFollowed.rooms = [newRoom._id];
-			// }
-
-			// if (userFollowing.rooms) {
-			// 	userFollowing.rooms.push(newRoom._id);
-			// } else {
-			// 	userFollowing.rooms = [newRoom._id];
-			// }
+			safePush(userFollowed.rooms, newRoom._id);
+			safePush(userFollowing.rooms, newRoom._id);
+			response.friend = true;
 		}
 
 		await userFollowed.save();
 		await userFollowing.save();
-		return json({ userFollowed, userFollowing }, { status: 200 });
+
+		response.success = true;
+		return json(response, { status: 200 });
 	} catch (err) {
 		console.error(err);
-		return json({ data: [], error: err }, { status: 400 });
+		return json({ success: false, error: err }, { status: 400 });
 	}
 };
