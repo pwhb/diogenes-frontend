@@ -7,10 +7,7 @@ import type { IUser } from '$lib/models/user';
 declare namespace App {
 	// interface Error {}
 	interface Locals {
-		user: {
-			username: string;
-			role: string;
-		};
+		user: IUser;
 	}
 	// interface PageData {}
 	// interface Platform {}

@@ -11,7 +11,14 @@ export const handle: Handle = async ({ event, resolve }) => {
 		await dbConnect();
 		const loggedInUser = await user
 			.findOne({ token })
-			.select({ _id: 0, username: 1, role: 1, avatar: 1 })
+			.select({
+				_id: false,
+				username: true,
+				role: true,
+				avatar: true,
+				friends: true,
+				following: true
+			})
 			.lean();
 		console.log(loggedInUser);
 

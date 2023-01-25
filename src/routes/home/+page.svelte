@@ -1,15 +1,8 @@
 <script>
-	import { page } from '$app/stores';
-	import BottomNavigator from '$lib/components/bottom_navigator.svelte';
+	import SearchBar from '$lib/components/home/search_bar.svelte';
 </script>
 
-<h1>Home</h1>
-
-{#if $page.data.user}
-	<p>Welcome {$page.data.user.username}</p>
-	<form action="/logout" method="post">
-		<button type="submit">Log out</button>
-	</form>
-{/if}
-
-<BottomNavigator />
+<div class="mx-16">
+	<h1>Search Friends</h1>
+	<SearchBar />
+</div>
