@@ -1,4 +1,3 @@
-
 // import dbConnect from "$lib/database/connectDB";
 // import clientConfig from "$lib/models/clientConfig";
 // import { json, type RequestEvent, type RequestHandler } from "@sveltejs/kit";

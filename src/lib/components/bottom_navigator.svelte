@@ -1,3 +1,6 @@
+<script>
+</script>
+
 <div class="btm-nav">
 	<button class="text-secondary">
 		<svg

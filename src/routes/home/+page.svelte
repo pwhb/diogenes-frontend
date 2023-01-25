@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores';
-	import BottomNavigator from '$lib/components/bottom_navigator.svelte';	
+	import BottomNavigator from '$lib/components/bottom_navigator.svelte';
 </script>
 
 <h1>Home</h1>
