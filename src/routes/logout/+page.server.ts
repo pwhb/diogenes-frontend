@@ -3,6 +3,7 @@ import type { Action, Actions } from './$types';
 
 const logout: Action = async ({ cookies }) => {
 	cookies.delete('token');
+
 	// cookies.set("token", "", {
 	//     path: '/',
 	//     expires: new Date(0)

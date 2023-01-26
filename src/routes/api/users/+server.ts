@@ -1,5 +1,4 @@
 import dbConnect from '$lib/database/connectDB';
-import clientConfig from '$lib/models/clientConfig';
 import user from '$lib/models/user';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 

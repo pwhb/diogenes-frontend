@@ -5,9 +5,9 @@ const { Schema, model, models } = mongoose;
 
 export interface IRoom {
 	members: [];
-	concat: string;
 	type: string;
-	isActive: true;
+	isActive: boolean;
+	name?: string;
 }
 
 const roomSchema = new Schema<IRoom>(
@@ -22,12 +22,12 @@ const roomSchema = new Schema<IRoom>(
 			type: String,
 			default: 'private'
 		},
-		concat: {
-			type: String
-		},
 		isActive: {
 			type: Boolean,
 			default: true
+		},
+		name: {
+			type: String
 		}
 	},
 	{ timestamps: true }

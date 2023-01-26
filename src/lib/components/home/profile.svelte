@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import type { IUser } from '$lib/models/user';
+	import Avatar from '../common/avatar.svelte';
 
 	export let user: IUser;
 	export let followings = $page.data.followings;
@@ -12,21 +13,7 @@
 	<img class="object-fill h-48 -mb-16" src="https://placeimg.com/400/225/arch" alt="Shoes" />
 	<div class="card-body">
 		<div class="text-center flex flex-col items-center">
-			<div class="avatar">
-				{#if user.avatar}
-					<div class="avatar">
-						<div class="w-16 rounded-full">
-							<img src={user.avatar} alt={user.username} />
-						</div>
-					</div>
-				{:else}
-					<div class="avatar placeholder">
-						<div class="bg-neutral-focus text-neutral-content rounded-full w-16">
-							<span class="text-3xl">{user.username[0]}</span>
-						</div>
-					</div>
-				{/if}
-			</div>
+			<Avatar {user} />
 
 			<p class="text font-bold">{user.username}</p>
 			<div class="card">follower: {followers.length} | following: {followings.length}</div>

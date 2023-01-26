@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { ActionData } from './$types';
 
 	let showPassword = false;
@@ -6,6 +7,8 @@
 	export let form: ActionData;
 
 	console.log('form', form);
+
+	console.log('page', $page.data);
 </script>
 
 <div class="hero min-h-screen bg-base-200">

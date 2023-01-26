@@ -1,10 +1,10 @@
 <script lang="ts">
 	import SearchBar from '$lib/components/home/search_bar.svelte';
-	import { usersfollowed, usersfollowing } from '$lib/store/home';
+	import { followerStore, followedStore } from '$lib/store/home';
 
 	console.log('home page', {
-		$usersfollowed,
-		$usersfollowing
+		$followerStore,
+		$followedStore
 	});
 </script>
 

@@ -41,18 +41,15 @@ export const POST: RequestHandler = async ({ cookies, request }: RequestEvent) =
 		});
 
 		if (isFollowed) {
-			const newRoom = await room.findOneAndUpdate(
-				{
-					$or: [{ concat: userFollowing._id + id }, { concat: id + userFollowing._id }]
-				},
-				{
-					concat: id + userFollowing._id,
-					members: [id, userFollowing._id]
-				},
-				{ upsert: true, setDefaultsOnInsert: true, new: true }
-			);
+			const oldRoom = await room.findOne({
+				members: { $all: [id, userFollowing._id] },
+				type: 'private'
+			});
 
-			console.log('a beginning of a friendship', newRoom);
+			if (!oldRoom) {
+				const newRoom = await room.create({ members: [id, userFollowing._id] });
+				console.log('a beginning of a friendship', newRoom);
+			}
 		}
 
 		return json({ success: true, following: newFollowing, isFollowed }, { status: 200 });

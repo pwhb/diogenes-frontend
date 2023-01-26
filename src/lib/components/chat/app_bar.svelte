@@ -1,6 +1,6 @@
 <div class="navbar bg-base-100">
 	<div class="navbar-start">
-		<div class="dropdown">
+		<!-- <div class="dropdown">
 			<label tabindex="0" class="btn btn-ghost btn-circle">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -24,13 +24,13 @@
 				<li><a>Portfolio</a></li>
 				<li><a>About</a></li>
 			</ul>
-		</div>
+		</div> -->
 	</div>
 	<div class="navbar-center">
 		<a class="btn btn-ghost normal-case text-xl" href="/">Diogenes</a>
 	</div>
 	<div class="navbar-end">
-		<button class="btn btn-ghost btn-circle">
+		<!-- <button class="btn btn-ghost btn-circle">
 			<div class="indicator">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +47,6 @@
 				>
 				<span class="badge badge-xs badge-primary indicator-item" />
 			</div>
-		</button>
+		</button> -->
 	</div>
 </div>

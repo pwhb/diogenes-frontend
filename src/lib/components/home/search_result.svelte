@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { IUser } from '$lib/models/user';
-	import { usersfollowing } from '$lib/store/home';
+	import { followedStore } from '$lib/store/home';
 
 	export let searchedUser: IUser;
-	let alreadyFollowing = $usersfollowing && $usersfollowing.includes(searchedUser._id as never);
+	let alreadyFollowing = $followedStore && $followedStore.includes(searchedUser._id as never);
 
 	const onClick = async () => {
 		if (!alreadyFollowing) {
@@ -19,7 +19,7 @@
 
 			if (success) {
 				alreadyFollowing = true;
-				usersfollowing.update((prev) => {
+				followedStore.update((prev) => {
 					prev.push(searchedUser._id as never);
 					return prev;
 				});

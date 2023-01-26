@@ -1,5 +1,4 @@
 import dbConnect from '$lib/database/connectDB';
-import room from '$lib/models/room';
 import user from '$lib/models/user';
 import { checkAndSafePop } from '$lib/utils/array';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
