@@ -1,3 +1,5 @@
+import type { IUser } from '$lib/models/user';
+import { usersfollowed, usersfollowing } from '$lib/store/home';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 

@@ -1,11 +1,10 @@
 <script>
-	import { page } from '$app/stores';
 	import { searchResults } from '$lib/store/home';
 	import Icon from '@iconify/svelte';
 	import SearchResult from './search_result.svelte';
 	let searchInput = '';
 
-	const searchFriend = async () => {
+	const searchUser = async () => {
 		const url = `/api/users?q=${searchInput}&active=true`;
 		const res = await fetch(url);
 		const { data } = await res.json();
@@ -25,7 +24,7 @@
 			class="input input-bordered w-full"
 			bind:value={searchInput}
 		/>
-		<button class="btn btn-square" on:click={searchFriend}>
+		<button class="btn btn-square" on:click={searchUser}>
 			<Icon icon="material-symbols:person-search-rounded" width="24" />
 		</button>
 	</div>

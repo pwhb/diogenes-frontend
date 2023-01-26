@@ -3,6 +3,7 @@ import type { Action, Actions, PageServerLoad } from './$types';
 import user from '$lib/models/user';
 import { hash } from 'argon2';
 import dbConnect from '$lib/database/connectDB';
+import { getJwt } from '$lib/utils/jwt';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (locals.user) {
@@ -40,11 +41,9 @@ const register: Action = async ({ request, cookies }) => {
 
 	const hashedPassword = await hash(password as string);
 
-	const { token } = await user.create({
-		username,
-		password: hashedPassword,
-		token: crypto.randomUUID()
-	});
+	const { _id, role, avatar } = await user.create({ username, password: hashedPassword });
+
+	const token = getJwt({ _id, username, role, avatar });
 
 	cookies.set('token', token, {
 		httpOnly: true,

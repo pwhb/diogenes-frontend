@@ -1,5 +1,6 @@
 import dbConnect from '$lib/database/connectDB';
-import user from '$lib/models/user';
+import type { IUser } from '$lib/models/user';
+import { decodeJwt } from '$lib/utils/jwt';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -9,26 +10,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 	try {
 		await dbConnect();
-		const loggedInUser = await user
-			.findOne({ token })
-			.select({
-				_id: false,
-				username: true,
-				role: true,
-				avatar: true,
-				friends: true,
-				following: true,
-				rooms: true
-			})
-			.populate({
-				path: 'rooms',
-				populate: {
-					path: 'members',
-					select: 'username avatar'
-				}
-			})
-			// .populate('rooms')
-			.lean();
+		const loggedInUser = decodeJwt(token) as IUser;
 		console.log(loggedInUser);
 
 		event.locals.user = loggedInUser;

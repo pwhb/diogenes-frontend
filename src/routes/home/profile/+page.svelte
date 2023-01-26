@@ -1,9 +1,8 @@
 <script>
 	import { page } from '$app/stores';
+	import Profile from '$lib/components/home/profile.svelte';
+	const { user } = $page.data;
+
 </script>
 
-<h1>profile</h1>
-<p>Welcome {$page.data.user.username}</p>
-<form action="/logout" method="post">
-	<button type="submit">Log out</button>
-</form>
+<Profile {user} />

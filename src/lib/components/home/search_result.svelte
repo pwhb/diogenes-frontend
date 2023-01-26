@@ -1,14 +1,12 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import type { IUser } from '$lib/models/user';
+	import { usersfollowing } from '$lib/store/home';
 
-	const { user } = $page.data;
 	export let searchedUser: IUser;
-	let alreadyFollowing = user.following && user.following.includes(searchedUser._id);
+	let alreadyFollowing = $usersfollowing && $usersfollowing.includes(searchedUser._id as never);
 
 	const onClick = async () => {
 		if (!alreadyFollowing) {
-			console.log(`${user.username} is following ${searchedUser.username}`);
 			const url = `/api/users/${alreadyFollowing ? 'unfollow' : 'follow'}`;
 
 			const payload = { id: searchedUser._id };
@@ -17,10 +15,14 @@
 				body: JSON.stringify(payload)
 			};
 			const res = await fetch(url, options);
-			const { follow } = await res.json();
+			const { success } = await res.json();
 
-			if (follow) {
+			if (success) {
 				alreadyFollowing = true;
+				usersfollowing.update((prev) => {
+					prev.push(searchedUser._id as never);
+					return prev;
+				});
 			}
 		}
 	};

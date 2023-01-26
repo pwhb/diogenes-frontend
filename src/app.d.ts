@@ -3,12 +3,14 @@
 
 import type { IUser } from '$lib/models/user';
 
-// and what to do when importing types
-declare namespace App {
-	// interface Error {}
-	interface Locals {
-		user: IUser;
+declare global {
+	// and what to do when importing types
+	declare namespace App {
+		// interface Error {}
+		interface Locals {
+			user: IUser;
+		}
+		// interface PageData {}
+		// interface Platform {}
 	}
-	// interface PageData {}
-	// interface Platform {}
 }

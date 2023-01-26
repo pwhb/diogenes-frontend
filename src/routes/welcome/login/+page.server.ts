@@ -3,6 +3,7 @@ import type { Action, Actions, PageServerLoad } from './$types';
 import user from '$lib/models/user';
 import { verify } from 'argon2';
 import dbConnect from '$lib/database/connectDB';
+import { getJwt } from '$lib/utils/jwt';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (locals.user) {
@@ -42,12 +43,9 @@ const login: Action = async ({ request, cookies }) => {
 		invalid.password = 'wrong password';
 		return fail(400, { invalid, previous });
 	}
+	const { _id, role, avatar } = oldUser;
 
-	const { token } = await user.findByIdAndUpdate(
-		oldUser._id,
-		{ token: crypto.randomUUID() },
-		{ new: true }
-	);
+	const token = getJwt({ _id, username, role, avatar });
 
 	cookies.set('token', token, {
 		httpOnly: true,
