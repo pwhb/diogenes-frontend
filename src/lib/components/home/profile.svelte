@@ -10,7 +10,7 @@
 </script>
 
 <div class="card w-full shadow-xl">
-	<img class="object-fill h-48 -mb-16" src="https://placeimg.com/400/225/arch" alt="Shoes" />
+	<img class="object-fill h-48 -mb-16" src="/undraw_stars.svg" alt="Shoes" />
 	<div class="card-body">
 		<div class="text-center flex flex-col items-center">
 			<Avatar {user} />

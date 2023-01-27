@@ -1,11 +1,10 @@
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params, fetch }) => {
-	const { room } = params;
-	const url = `/api/rooms/${room}`;
+	const { id } = params;
+	const url = `/api/rooms/${id}`;
 	const res = await fetch(url);
-	const data = await res.json();
-	console.log('page.ts', data);
+	const { room } = await res.json();
 	return {
 		room
 	};

@@ -1,20 +1,9 @@
-<script>
+<script lang="ts">
 	import { socket } from '$lib/socketio/socket';
 	import { chatInput, messages, roomName, username } from '$lib/store/chat';
 	import Icon from '@iconify/svelte';
 	let drawerOpen = false;
-	const onSend = () => {
-		const newMessage = {
-			username: $username,
-			body: $chatInput,
-			time: new Date(),
-			room: $roomName
-		};
-		socket.emit('send-message', newMessage);
-		// @ts-ignore
-		messages.update((val) => [...val, newMessage]);
-		chatInput.set('');
-	};
+	export let onSend: () => void;
 	const onOpenDrawer = () => {
 		drawerOpen = !drawerOpen;
 	};
