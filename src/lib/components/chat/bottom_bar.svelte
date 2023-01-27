@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { socket } from '$lib/socketio/socket';
-	import { chatInput, messages, roomName, username } from '$lib/store/chat';
+	import { chatInput } from '$lib/store/chat';
 	import Icon from '@iconify/svelte';
 	let drawerOpen = false;
 	export let onSend: () => void;
@@ -10,25 +9,28 @@
 </script>
 
 <div class="bg-black">
-	<div class="form-control">
-		<div class="input-group">
-			<button class="btn btn-square" on:click={onOpenDrawer}>
-				<Icon icon="noto:video-game" width="24" />
-			</button>
-			<input
-				type="text"
-				placeholder="Say Hi ..."
-				class="input input-bordered w-full"
-				bind:value={$chatInput}
-			/>
-			<button class="btn btn-square" on:click={onSend}>
-				<Icon icon="mdi:send" width="24" />
-			</button>
+	<form on:submit|preventDefault={onSend}>
+		<div class="form-control">
+			<div class="input-group">
+				<button class="btn btn-square" on:click={onOpenDrawer} type="button">
+					<Icon icon="noto:video-game" width="24" />
+				</button>
+				<input
+					type="text"
+					placeholder="Say Hi ..."
+					class="input input-bordered w-full"
+					bind:value={$chatInput}
+				/>
+
+				<button class="btn btn-square" type="submit">
+					<Icon icon="mdi:send" width="24" />
+				</button>
+			</div>
 		</div>
-	</div>
-	{#if drawerOpen}
-		<div>
-			<p>drawer</p>
-		</div>
-	{/if}
+		{#if drawerOpen}
+			<div>
+				<p>drawer</p>
+			</div>
+		{/if}
+	</form>
 </div>

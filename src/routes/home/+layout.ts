@@ -1,6 +1,6 @@
-import type { LayoutServerLoad } from './$types';
+import type { LayoutLoad } from './$types';
 
-export const load: LayoutServerLoad = async ({ fetch }) => {
+export const load: LayoutLoad = async ({ fetch }) => {
 	const url = `/api/followings`;
 	const res = await fetch(url);
 	const { followers, followings } = await res.json();

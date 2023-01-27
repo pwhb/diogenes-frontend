@@ -21,6 +21,7 @@
 		"argon2": "^0.30.2",
 		"autoprefixer": "^10.4.13",
 		"daisyui": "^2.46.0",
+		"dayjs": "^1.11.7",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",

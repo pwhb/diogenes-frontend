@@ -1,5 +1,7 @@
 <script>
 	import { page } from '$app/stores';
+	import { getTheOtherUser } from '$lib/utils/get';
+	const { room, user } = $page.data;
 </script>
 
 <div class="navbar bg-base-100">
@@ -31,7 +33,7 @@
 		</div> -->
 	</div>
 	<div class="navbar-center">
-		<a class="btn btn-ghost normal-case text-xl" href="/">Diogenes</a>
+		<a class="normal-case text-xl" href="/">{getTheOtherUser(room.members, user._id).username}</a>
 	</div>
 	<div class="navbar-end">
 		<!-- <button class="btn btn-ghost btn-circle">

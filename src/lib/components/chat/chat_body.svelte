@@ -1,12 +1,15 @@
 <script>
-	import { messages } from '$lib/store/chat';
+	import { page } from '$app/stores';
+	import { messagesStore } from '$lib/store/chat';
+	import { getUser } from '$lib/utils/get';
+	import Message from './message.svelte';
+	const { room } = $page.data;
 </script>
 
-<div class="">
-	<div class="text-center text-black bg-gray-300">
-		{#each $messages as message}
-			<div>{message.username} : {message.body}</div>
-			<div>{message.time}</div>
-		{/each}
-	</div>
+<div class="overflow-x-auto">
+	{#each $messagesStore as message}
+		<Message {message} />
+		<!-- <div>{getUser(room.members, message.sender).username} : {message.body}</div>
+			<div>{message.createdAt}</div> -->
+	{/each}
 </div>

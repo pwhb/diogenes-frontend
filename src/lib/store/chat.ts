@@ -2,10 +2,8 @@ import { writable } from 'svelte/store';
 
 export const rooms = writable([]);
 
-export const messages = writable([]);
+export const messagesStore = writable([]);
 
 export const chatInput = writable('');
 
-export const username = writable('');
 
-export const roomName = writable('');

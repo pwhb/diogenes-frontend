@@ -1,20 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Avatar from '$lib/components/common/avatar.svelte';
-	import type { IUser } from '$lib/models/user';
+	import { getTheOtherUser } from '$lib/utils/get';
 
-	const { rooms } = $page.data;
+	const { rooms, user } = $page.data;
 
 	console.log('chat', rooms);
-	const getTheOtherUser = (members: IUser[]) => {
-		for (let member of members) {
-			if (member._id !== $page.data.user._id) {
-				return member;
-			}
-		}
-
-		return members[0];
-	};
 </script>
 
 <div class="mx-16">
@@ -23,9 +14,9 @@
 	{#if rooms}
 		{#each rooms as { members, _id }}
 			<a href={`/chat/${_id}`} class="p-3 flex flex-row gap-5 items-center">
-				<Avatar user={getTheOtherUser(members)} />
+				<Avatar user={getTheOtherUser(members, user._id)}/>
 				<div>
-					<p class="text font-bold">{getTheOtherUser(members)?.username}</p>
+					<p class="text font-bold">{getTheOtherUser(members, user._id)?.username}</p>
 					<p>old text</p>
 				</div>
 			</a>
