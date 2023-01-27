@@ -4,6 +4,7 @@ import user from './user';
 const { Schema, model, models } = mongoose;
 
 export interface IMessage {
+	_id: ObjectId;
 	room: ObjectId;
 	sender: ObjectId;
 	body: string;

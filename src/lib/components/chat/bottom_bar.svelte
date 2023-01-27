@@ -8,9 +8,9 @@
 	};
 </script>
 
-<div class="bg-black">
+<div class="btm-nav max-w-xl mx-auto">
 	<form on:submit|preventDefault={onSend}>
-		<div class="form-control">
+		<div class="form-control w-full">
 			<div class="input-group">
 				<button class="btn btn-square" on:click={onOpenDrawer} type="button">
 					<Icon icon="noto:video-game" width="24" />
