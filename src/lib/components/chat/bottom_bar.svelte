@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { chatInput } from '$lib/store/chat';
 	import Icon from '@iconify/svelte';
+	import Drawer from './drawer.svelte';
 	let drawerOpen = false;
 	export let onSend: () => void;
 	const onOpenDrawer = () => {
@@ -29,7 +30,7 @@
 		</div>
 		{#if drawerOpen}
 			<div>
-				<p>drawer</p>
+				<Drawer />
 			</div>
 		{/if}
 	</form>
