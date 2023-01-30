@@ -24,7 +24,7 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 		const messages = await message
 			.find({ room: new mongoose.Types.ObjectId(id) })
 			.lean()
-			.sort({ createdAt: 1 });
+			.populate('sender');
 
 		if (!fetchedRoom) {
 			return json({ success: false, error: 'unauthorized' }, { status: 401 });

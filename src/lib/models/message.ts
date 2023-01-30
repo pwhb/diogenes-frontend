@@ -1,12 +1,13 @@
 import mongoose, { type ObjectId } from 'mongoose';
-import user from './user';
+import user, { type IUser } from './user';
 
 const { Schema, model, models } = mongoose;
 
 export interface IMessage {
+	new: boolean;
 	_id: ObjectId;
 	room: ObjectId;
-	sender: ObjectId;
+	sender: IUser;
 	body: string;
 	type: string;
 	createdAt: Date;

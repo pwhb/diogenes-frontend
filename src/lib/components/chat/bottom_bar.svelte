@@ -8,7 +8,7 @@
 	};
 </script>
 
-<div class="btm-nav max-w-xl mx-auto">
+<div class="max-w-xl w-full bg-base-100 mx-auto">
 	<form on:submit|preventDefault={onSend}>
 		<div class="form-control w-full">
 			<div class="input-group">
