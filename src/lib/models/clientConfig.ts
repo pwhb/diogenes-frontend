@@ -1,9 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-const { Schema, model, models } = mongoose
+const { Schema, model, models } = mongoose;
 
-const clientConfigSchema = new Schema({
+const clientConfigSchema = new Schema({}, { strict: false, timestamps: false });
 
-}, { strict: false, timestamps: false })
-
-export default models.ClientConfig || model('ClientConfig', clientConfigSchema)
+export default models.ClientConfig || model('ClientConfig', clientConfigSchema);

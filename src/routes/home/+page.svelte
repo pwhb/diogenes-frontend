@@ -1,0 +1,14 @@
+<script lang="ts">
+	import SearchBar from '$lib/components/home/search_bar.svelte';
+	import { followerStore, followedStore } from '$lib/store/home';
+
+	console.log('home page', {
+		$followerStore,
+		$followedStore
+	});
+</script>
+
+<div class="mx-16">
+	<h1>Search Friends</h1>
+	<SearchBar />
+</div>
