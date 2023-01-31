@@ -29,7 +29,7 @@
 </script>
 
 <div class="text-center">
-	<p>Kiss And Bliss</p>
+	<p>sudoku</p>
 	<div class="grid grid-cols-3">
 		<div class="mx-auto p-2 -scale-x-100">
 			<img
