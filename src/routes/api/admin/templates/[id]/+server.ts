@@ -9,7 +9,7 @@ export const PATCH: RequestHandler = async ({ request, params }: RequestEvent) =
 		const { id } = params;
 		const body = await request.json();
 
-		const keys = ['name', 'modes', 'playerCounts', 'description', 'howToPlay'];
+		const keys = ['name', 'modes', 'playerCounts', 'description', 'howToPlay', 'icon'];
 		const update = getUpdateDocument(body, keys);
 
 		const template = await gameTemplate.findByIdAndUpdate(id, update, { new: true });

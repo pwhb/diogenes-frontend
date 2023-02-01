@@ -10,7 +10,7 @@ export interface IGame {
 	template: IGameTemplate;
 	mode: string;
 	players: IUser[];
-	playerCounts: number;
+	playerCount: number;
 }
 
 const gameSchema = new Schema<IGame>(
@@ -26,9 +26,11 @@ const gameSchema = new Schema<IGame>(
 				ref: user.modelName
 			}
 		],
-		playerCounts: { type: Number }
+		playerCount: { type: Number }
 	},
 	{ timestamps: true }
 );
+
+
 
 export default models.Game || model('Game', gameSchema);
