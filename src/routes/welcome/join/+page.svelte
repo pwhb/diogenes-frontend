@@ -4,8 +4,6 @@
 	let showPassword = false;
 
 	export let form: ActionData;
-
-	console.log('form', form);
 </script>
 
 <div class="hero min-h-screen bg-base-200">

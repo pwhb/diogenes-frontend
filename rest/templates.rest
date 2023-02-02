@@ -8,10 +8,10 @@
 
 
 ###
-GET {{localhost_url}}/api/admin/templates
+GET {{localhost_url}}/api/templates
 
 ###
-POST {{localhost_url}}/api/admin/templates HTTP/1.1
+POST {{localhost_url}}/api/templates HTTP/1.1
 Content-Type: application/json
 
 {
@@ -23,9 +23,9 @@ Content-Type: application/json
 }
 
 ###
-PATCH {{localhost_url}}/api/admin/templates/63da34c2a9664afa45e5b622 HTTP/1.1
+PATCH {{localhost_url}}/api/templates/63da34d5a9664afa45e5b626 HTTP/1.1
 Content-Type: application/json
 
 {
-    "icon": "arcticons:sudoku"
+    "icon": "ph:number-square-nine-bold"
 }

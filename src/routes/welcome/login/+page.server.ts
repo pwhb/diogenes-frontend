@@ -7,7 +7,6 @@ import { getJwt } from '$lib/utils/jwt';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (locals.user) {
-		console.log('login locals.user', locals.user);
 		throw redirect(302, '/home');
 	}
 };

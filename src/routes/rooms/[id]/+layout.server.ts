@@ -11,7 +11,6 @@ export const load: LayoutServerLoad = async ({ params, fetch, locals }) => {
 	const data = await res.json();
 	const { success, room, messages } = data;
 
-	console.log('chat page.ts data', data);
 	return {
 		room,
 		messages

@@ -7,7 +7,7 @@
 
 	const goBack = () => {
 		const type = $page.url.pathname.split('/')[3];
-		const path = type === 'chat' ? '/home/chat' : `${$page.url.pathname.replace(type, 'chat')}`;
+		const path = type === 'chat' ? '/home/chat' : `/chat/${room._id}`;
 		goto(path);
 	};
 </script>

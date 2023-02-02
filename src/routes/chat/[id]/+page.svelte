@@ -11,8 +11,6 @@
 
 	const { room, user, messages } = $page.data;
 
-	console.log('chat', { room, user });
-
 	const onSend = () => {
 		const payload = {
 			sender: user._id,
