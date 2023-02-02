@@ -15,7 +15,7 @@ export const POST: RequestHandler = async ({ request, cookies }: RequestEvent) =
 
 		await dbConnect();
 		const body = await request.json();
-		const { template, mode, playerCount } = body;
+		const { template, mode, playerCount, room } = body;
 		const keys = ['template', 'mode', 'playerCount'];
 		if (!validateBody(body, keys)) {
 			return json({ message: 'invalid params', keys }, { status: 400 });
@@ -26,6 +26,7 @@ export const POST: RequestHandler = async ({ request, cookies }: RequestEvent) =
 			mode,
 			players: [player._id],
 			playerCount,
+			room,
 			createdBy: player._id
 		});
 

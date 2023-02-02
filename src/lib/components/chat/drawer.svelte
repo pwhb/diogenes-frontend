@@ -2,10 +2,16 @@
 	import { page } from '$app/stores';
 	import { sendMessage } from '$lib/utils/socket';
 	import Icon from '@iconify/svelte';
+	import type { ObjectId } from 'mongoose';
 
 	const { room, templates, user } = $page.data;
 
-	const createGame = async (payload: { template: any; mode: any; playerCount: any }) => {
+	const createGame = async (payload: {
+		template: any;
+		mode: any;
+		playerCount: any;
+		room: ObjectId;
+	}) => {
 		const url = '/api/games';
 		const options = {
 			method: 'POST',
@@ -20,6 +26,7 @@
 		sendMessage({
 			sender: user._id,
 			game: data.game._id,
+			body: `${user.username} created the game`,
 			room: room._id,
 			type: 'game'
 		});
@@ -34,7 +41,8 @@
 				createGame({
 					template: _id,
 					mode: modes[0],
-					playerCount: playerCounts[0]
+					playerCount: playerCounts[0],
+					room: room._id
 				})}
 		>
 			<Icon {icon} width="64" class="mx-auto" />

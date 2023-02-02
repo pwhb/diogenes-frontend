@@ -4,7 +4,6 @@
 
 	import { getSince } from '$lib/utils/get';
 	import { scrollIntoView } from '$lib/utils/scroll';
-	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	import MessageBody from './message_body.svelte';
 
@@ -13,6 +12,8 @@
 	const { user } = $page.data;
 	const { sender } = message;
 	const createdAt = getSince(message.createdAt);
+	const senderUsername = sender.username;
+	// === user.username ? 'you' : sender.username;
 	onMount(() => {
 		if (message.new) {
 			scrollIntoView(id);
@@ -23,7 +24,7 @@
 {#if sender._id === user._id}
 	<div class="chat chat-end" {id}>
 		<div class="chat-header">
-			{sender.username}
+			{senderUsername}
 			<time class="text-xs opacity-50">{createdAt}</time>
 		</div>
 		<div class="chat-bubble chat-bubble-accent">
@@ -33,7 +34,7 @@
 {:else}
 	<div class="chat chat-start" {id}>
 		<div class="chat-header">
-			{sender.username}
+			{senderUsername}
 			<time class="text-xs opacity-50">{createdAt}</time>
 		</div>
 		<div class="chat-bubble chat-bubble-secondary">

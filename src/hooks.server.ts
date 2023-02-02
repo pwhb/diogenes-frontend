@@ -9,7 +9,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 	try {
 		const loggedInUser = decodeJwt(token) as IUser;
-		console.log(loggedInUser);
+	
 		event.locals.user = loggedInUser;
 	} catch (err) {
 		console.error(err);

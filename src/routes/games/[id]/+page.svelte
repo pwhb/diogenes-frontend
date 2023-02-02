@@ -21,7 +21,7 @@
 		// 		scrollIntoView(id);
 		// 	}
 		// });
-		console.log("game page", game)
+		console.log('game page', game);
 
 		socket.on('receive-message', (message) => {
 			message.new = true;
@@ -32,8 +32,8 @@
 </script>
 
 <div class="max-w-xl mx-auto h-screen flex flex-col">
-	<ChatAppBar />
-	<p>game</p>
+	<!-- <ChatAppBar /> -->
+	<p>game {game.template}</p>
 	<ChatBody />
 
 	<BottomBar />

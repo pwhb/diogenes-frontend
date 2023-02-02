@@ -15,7 +15,7 @@
 				<Avatar user={getTheOtherUser(members, user._id)} />
 				<div>
 					<p class="text font-bold">{getTheOtherUser(members, user._id)?.username}</p>
-					{#if lastMessage}
+					{#if lastMessage && lastMessage.body}
 						<p>{lastMessage.body}</p>
 					{:else}
 						<p>start a new conversation</p>

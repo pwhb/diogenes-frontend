@@ -1,8 +1,5 @@
 import dbConnect from '$lib/database/connectDB';
 import game from '$lib/models/game';
-import message from '$lib/models/message';
-import room from '$lib/models/room';
-
 import type { IUser } from '$lib/models/user';
 import { decodeJwt } from '$lib/utils/jwt';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
@@ -18,13 +15,26 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 		const { id } = params;
 		await dbConnect();
 
-		const fetchedGame = await game.findOne({ _id: new mongoose.Types.ObjectId(id), players: _id });
-
-		if (!fetchedGame) {
-			return json({ success: false, error: 'unauthorized' }, { status: 401 });
+		// const doc = await game.findByIdAndUpdate(
+		// 	{ _id: new mongoose.Types.ObjectId(id), players: _id },
+		// 	{ $push: { players: _id } },
+		// 	{ new: true, upsert: true, setDefaultsOnInsert: true });
+		const doc = await game.findById(id).populate({ path: "template" })
+		if (!doc) {
+			return json({ success: false, message: "game not found" }, { status: 404 });
 		}
 
-		return json({ success: true, game: fetchedGame }, { status: 200 });
+		if (!doc.players.includes(_id)) {
+			doc.players.push(_id)
+			if (doc.status === "pending" && doc.players.length === doc.playerCount) {
+				doc.status = "started"
+			}
+			await doc.save()
+			return json({ success: true, updated: true, game: doc }, { status: 200 });
+		}
+
+
+		return json({ success: true, updated: false, game: doc }, { status: 200 });
 	} catch (err) {
 		console.error(err);
 		return json({ success: false, error: err }, { status: 400 });
