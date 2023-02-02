@@ -1,8 +1,8 @@
 <script lang="ts">
-	import BottomBar from '$lib/components/chat/bottom_bar.svelte';
 	import ChatBody from '$lib/components/chat/chat_body.svelte';
+	import ChatBottomBar from '$lib/components/chat/chat_bottom_bar.svelte';
 </script>
 
 <ChatBody />
 
-<BottomBar />
+<ChatBottomBar />

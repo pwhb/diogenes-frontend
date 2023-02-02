@@ -1,26 +1,27 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import BottomBar from '$lib/components/chat/bottom_bar.svelte';
+
 	import ChatAppBar from '$lib/components/chat/chat_app_bar.svelte';
 	import ChatBody from '$lib/components/chat/chat_body.svelte';
+	import GameChatBottomBar from '$lib/components/games/common/game_chat_bottom_bar.svelte';
 	import type { IMessage } from '$lib/models/message';
 	import { socket } from '$lib/socketio/socket';
 	import { messagesStore } from '$lib/store/chat';
 	import { scrollIntoView } from '$lib/utils/scroll';
 	import { onMount } from 'svelte';
 
-	const { game } = $page.data;
+	const { game, user } = $page.data;
 
 	onMount(() => {
 		// messagesStore.set(messages);
 
-		// socket.emit('enter-room', { roomId: room._id, userId: user._id }, (res: any) => {
-		// 	const lastMessage = $messagesStore[$messagesStore.length - 1] as IMessage;
-		// 	if (lastMessage) {
-		// 		const id = lastMessage._id.toString();
-		// 		scrollIntoView(id);
-		// 	}
-		// });
+		socket.emit('enter-room', { roomId: game._id, userId: user._id }, (res: any) => {
+			const lastMessage = $messagesStore[$messagesStore.length - 1] as IMessage;
+			if (lastMessage) {
+				const id = lastMessage._id.toString();
+				scrollIntoView(id);
+			}
+		});
 		console.log('game page', game);
 
 		socket.on('receive-message', (message) => {
@@ -36,5 +37,5 @@
 	<p>game {game.template}</p>
 	<ChatBody />
 
-	<BottomBar />
+	<GameChatBottomBar />
 </div>

@@ -24,14 +24,14 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 		const messages = await message
 			.find({ room: new mongoose.Types.ObjectId(id) })
 			.lean()
-			.populate([{
+			.populate({
 				path: 'sender',
-			}, {
+			}).populate({
 				path: 'game',
 				populate: {
 					path: 'template'
 				}
-			}])
+			})
 
 
 		if (!fetchedRoom) {
