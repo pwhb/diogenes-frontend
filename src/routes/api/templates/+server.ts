@@ -7,7 +7,10 @@ import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 export const GET: RequestHandler = async ({ request }: RequestEvent) => {
 	try {
 		await dbConnect();
-		const templates = await gameTemplate.find({}).select({}).lean();
+		const templates = await gameTemplate
+			.find({})
+			.select({ createdAt: false, updatedAt: false, __v: false })
+			.lean();
 		return json({ success: true, templates }, { status: 200 });
 	} catch (err) {
 		console.error(err);

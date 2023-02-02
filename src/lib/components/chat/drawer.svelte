@@ -1,42 +1,51 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
+	import { socket } from '$lib/socketio/socket';
+	import { messagesStore } from '$lib/store/chat';
 	import Icon from '@iconify/svelte';
 
-	const games = [
-		{
-			name: 'kiss and bliss',
-			image: '/kiss-mark-svgrepo-com.svg',
-			url: 'kiss-and-bliss',
-			icon: 'noto:biting-lip'
-		},
-		{
-			name: 'kiss and bliss',
-			image: '/kiss-mark-svgrepo-com.svg',
-			url: 'kiss-and-bliss',
-			icon: 'noto:biting-lip'
-		},
-		{
-			name: 'kiss and bliss',
-			image: '/kiss-mark-svgrepo-com.svg',
-			url: 'kiss-and-bliss',
-			icon: 'noto:biting-lip'
-		},
-		{
-			name: 'kiss and bliss',
-			image: '/kiss-mark-svgrepo-com.svg',
-			url: 'kiss-and-bliss',
-			icon: 'noto:biting-lip'
-		}
-	];
-	const { room, templates } = $page.data;
+	const { room, templates, user } = $page.data;
+	console.log('drawer', templates);
+	const createGame = async (payload: { template: any; mode: any; playerCount: any }) => {
+		const url = '/api/games';
+		const options = {
+			method: 'POST',
+			body: JSON.stringify(payload)
+		};
+
+		const res = await fetch(url, options);
+		const data = await res.json();
+
+		console.log(data);
+	};
+
+	const onSend = () => {
+		const payload = {
+			sender: user._id,
+			body: {},
+			room: room._id
+		};
+		socket.emit('send-message', payload, (res: never) => {
+			// @ts-ignore
+			res.new = true;
+			messagesStore.update((val) => [...val, res]);
+		});
+	};
 </script>
 
 <div class="grid grid-cols-2 gap-1 m-2 text-center">
-	{#each templates as { name, icon, slug }}
-		<a class="border h-30 border-dashed py-2 rounded-md" href={`/rooms/${room._id}/${slug}`}>
-			<!-- <img src={image} class="w-24 mx-auto" alt={name} /> -->
+	{#each templates as { _id, name, icon, slug, modes, playerCounts }}
+		<button
+			class="border h-30 border-dashed py-2 rounded-md hover:opacity-75"
+			on:click={() =>
+				createGame({
+					template: _id,
+					mode: modes[0],
+					playerCount: playerCounts[0]
+				})}
+		>
 			<Icon {icon} width="64" class="mx-auto" />
 			<p>{name}</p>
-		</a>
+		</button>
 	{/each}
 </div>
