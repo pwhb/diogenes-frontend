@@ -4,7 +4,9 @@
 
 	import { getSince } from '$lib/utils/get';
 	import { scrollIntoView } from '$lib/utils/scroll';
+	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
+	import MessageBody from './message_body.svelte';
 
 	export let message: IMessage;
 	const id = message._id.toString();
@@ -24,7 +26,9 @@
 			{sender.username}
 			<time class="text-xs opacity-50">{createdAt}</time>
 		</div>
-		<div class="chat-bubble chat-bubble-accent">{message.body}</div>
+		<div class="chat-bubble chat-bubble-accent">
+			<MessageBody {message} />
+		</div>
 	</div>
 {:else}
 	<div class="chat chat-start" {id}>
@@ -32,6 +36,8 @@
 			{sender.username}
 			<time class="text-xs opacity-50">{createdAt}</time>
 		</div>
-		<div class="chat-bubble chat-bubble-secondary">{message.body}</div>
+		<div class="chat-bubble chat-bubble-secondary">
+			<MessageBody {message} />
+		</div>
 	</div>
 {/if}

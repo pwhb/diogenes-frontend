@@ -24,7 +24,13 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 		const messages = await message
 			.find({ room: new mongoose.Types.ObjectId(id) })
 			.lean()
-			.populate('sender');
+			.populate('sender')
+			.populate({
+				path: 'game',
+				populate: {
+					path: 'template'
+				}
+			});
 
 		if (!fetchedRoom) {
 			return json({ success: false, error: 'unauthorized' }, { status: 401 });

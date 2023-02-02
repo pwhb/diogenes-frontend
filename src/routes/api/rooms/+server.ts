@@ -26,7 +26,6 @@ export const GET: RequestHandler = async ({ cookies }: RequestEvent) => {
 			room.lastMessage = lastMessage;
 		}
 
-		console.log('server rooms', rooms);
 		return json({ success: true, rooms }, { status: 200 });
 	} catch (err) {
 		console.error(err);

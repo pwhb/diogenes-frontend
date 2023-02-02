@@ -1,4 +1,5 @@
 import dbConnect from '$lib/database/connectDB';
+import game from '$lib/models/game';
 import message from '$lib/models/message';
 import room from '$lib/models/room';
 
@@ -17,20 +18,13 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 		const { id } = params;
 		await dbConnect();
 
-		const fetchedRoom = await room
-			.findOne({ _id: new mongoose.Types.ObjectId(id), members: _id })
-			.populate('members', '_id username avatar')
-			.lean();
-		const messages = await message
-			.find({ room: new mongoose.Types.ObjectId(id) })
-			.lean()
-			.populate('sender');
+		const fetchedGame = await game.findOne({ _id: new mongoose.Types.ObjectId(id), players: _id });
 
-		if (!fetchedRoom) {
+		if (!fetchedGame) {
 			return json({ success: false, error: 'unauthorized' }, { status: 401 });
 		}
 
-		return json({ success: true, room: fetchedRoom, messages }, { status: 200 });
+		return json({ success: true, game: fetchedGame }, { status: 200 });
 	} catch (err) {
 		console.error(err);
 		return json({ success: false, error: err }, { status: 400 });

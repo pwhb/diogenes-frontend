@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { socket } from '$lib/socketio/socket';
-	import { messagesStore } from '$lib/store/chat';
+	import { sendMessage } from '$lib/utils/socket';
 	import Icon from '@iconify/svelte';
 
 	const { room, templates, user } = $page.data;
-	console.log('drawer', templates);
+
 	const createGame = async (payload: { template: any; mode: any; playerCount: any }) => {
 		const url = '/api/games';
 		const options = {
@@ -16,19 +15,13 @@
 		const res = await fetch(url, options);
 		const data = await res.json();
 
-		console.log(data);
-	};
+		console.log('created game', data.game);
 
-	const onSend = () => {
-		const payload = {
+		sendMessage({
 			sender: user._id,
-			body: {},
-			room: room._id
-		};
-		socket.emit('send-message', payload, (res: never) => {
-			// @ts-ignore
-			res.new = true;
-			messagesStore.update((val) => [...val, res]);
+			game: data.game._id,
+			room: room._id,
+			type: 'game'
 		});
 	};
 </script>

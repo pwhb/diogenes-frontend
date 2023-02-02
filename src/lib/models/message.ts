@@ -1,4 +1,6 @@
 import mongoose, { type ObjectId } from 'mongoose';
+import game, { type IGame } from './game';
+import room from './room';
 import user, { type IUser } from './user';
 
 const { Schema, model, models } = mongoose;
@@ -11,13 +13,14 @@ export interface IMessage {
 	body: string;
 	type: string;
 	createdAt: Date;
+	game?: IGame;
 }
 
 const messageSchema = new Schema<IMessage>(
 	{
 		room: {
 			type: Schema.Types.ObjectId,
-			ref: user.modelName
+			ref: room.modelName
 		},
 		sender: {
 			type: Schema.Types.ObjectId,
@@ -25,6 +28,10 @@ const messageSchema = new Schema<IMessage>(
 		},
 		body: {
 			type: String
+		},
+		game: {
+			type: Schema.Types.ObjectId,
+			ref: game.modelName
 		},
 		type: {
 			type: String,

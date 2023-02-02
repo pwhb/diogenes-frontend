@@ -21,14 +21,14 @@ export const POST: RequestHandler = async ({ request, cookies }: RequestEvent) =
 			return json({ message: 'invalid params', keys }, { status: 400 });
 		}
 
-		const created = await game.create({
+		const newGame = await game.create({
 			template,
 			mode,
 			players: [player._id],
-			playerCount
+			playerCount,
+			createdBy: player._id
 		});
 
-		const newGame = await created.populate({ path: 'template', select: 'name slug icon' });
 		return json({ game: newGame }, { status: 201 });
 	} catch (err) {
 		console.error(err);
