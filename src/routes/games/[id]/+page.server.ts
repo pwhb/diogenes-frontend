@@ -9,9 +9,10 @@ export const load: PageServerLoad = async ({ params, fetch, locals }) => {
 	const url1 = `/api/games/${id}`;
 	const res1 = await fetch(url1);
 	const data1 = await res1.json();
-	const { success, game } = data1;
+	const { success, game, messages } = data1;
 
 	return {
-		game
+		game,
+		messages
 	};
 };

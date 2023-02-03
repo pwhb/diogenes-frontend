@@ -6,6 +6,7 @@
 	import Icon from '@iconify/svelte';
 
 	export let message: IMessage;
+
 	const { user, room } = $page.data;
 	// href={`/games/${message.game?._id}`}
 

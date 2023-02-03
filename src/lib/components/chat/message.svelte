@@ -8,6 +8,7 @@
 	import MessageBody from './message_body.svelte';
 
 	export let message: IMessage;
+	export let inGame = false;
 	const id = message._id.toString();
 	const { user } = $page.data;
 	const { sender } = message;
@@ -22,7 +23,7 @@
 </script>
 
 {#if sender._id === user._id}
-	<div class="chat chat-end" {id}>
+	<div class={inGame ? 'chat chat-end opacity-60' : 'chat chat-end'} {id}>
 		<div class="chat-header">
 			{senderUsername}
 			<time class="text-xs opacity-50">{createdAt}</time>
@@ -32,7 +33,7 @@
 		</div>
 	</div>
 {:else}
-	<div class="chat chat-start" {id}>
+	<div class={inGame ? 'chat chat-start opacity-60' : 'chat chat-start'} {id}>
 		<div class="chat-header">
 			{senderUsername}
 			<time class="text-xs opacity-50">{createdAt}</time>

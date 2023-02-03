@@ -5,3 +5,7 @@
 .font-clock {
 	font-family: 'Orbitron', sans-serif;
 }
+
+.game-chat {
+	mask: linear-gradient(#0000, rgba(0, 0, 0, 0.8));
+}

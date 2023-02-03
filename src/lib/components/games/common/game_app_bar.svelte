@@ -3,22 +3,18 @@
 	import { page } from '$app/stores';
 	import { getTheOtherUser } from '$lib/utils/get';
 	import Icon from '@iconify/svelte';
-	const { room, user } = $page.data;
-
-	const goBack = () => {
-		const path = '/home/chat';
-		goto(path);
-	};
+	const { game } = $page.data;
 </script>
 
 <div class="navbar bg-base-100">
 	<div class="navbar-start">
-		<button on:click={goBack}>
+		<a href={`/chat/${game.room}`}>
 			<Icon icon="ic:baseline-arrow-back-ios" width="24" />
-		</button>
+		</a>
 	</div>
 	<div class="navbar-center">
-		<a class="normal-case text-xl" href="/">{getTheOtherUser(room.members, user._id).username}</a>
+		<div>game</div>
+		<!-- <a class="normal-case text-xl" href="/">{getTheOtherUser(room.members, user._id).username}</a> -->
 	</div>
 	<div class="navbar-end">
 		<!-- <button class="btn btn-ghost btn-circle">
