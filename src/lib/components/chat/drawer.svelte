@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { messagesStore } from '$lib/store/chat';
 	import { sendMessage } from '$lib/utils/socket';
 	import Icon from '@iconify/svelte';
 	import type { ObjectId } from 'mongoose';
@@ -23,13 +24,16 @@
 
 		console.log('created game', data.game);
 
-		sendMessage({
-			sender: user._id,
-			game: data.game._id,
-			body: `${user.username} created the game`,
-			room: room._id,
-			type: 'game'
-		});
+		sendMessage(
+			{
+				sender: user._id,
+				game: data.game._id,
+				body: `${user.username} created the game`,
+				room: room._id,
+				type: 'game'
+			},
+			messagesStore
+		);
 	};
 </script>
 

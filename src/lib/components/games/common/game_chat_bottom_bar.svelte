@@ -1,11 +1,9 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import { messagesStore } from '$lib/store/chat';
 	import { page } from '$app/stores';
 	import { sendMessage } from '$lib/utils/socket';
 	import GameChatBody from './game_chat_body.svelte';
-	import { scrollIntoView } from '$lib/utils/scroll';
-	import type { IMessage } from '$lib/models/message';
+	import { gameMessagesStore } from '$lib/store/game';
 
 	let chatOpen = false;
 	const { room, user, game } = $page.data;
@@ -14,19 +12,24 @@
 	const onChatOpen = () => {
 		chatOpen = !chatOpen;
 		if (chatOpen) {
-		
 		}
 	};
 
 	const onSend = () => {
 		console.log(game);
-
-		sendMessage({
-			sender: user._id,
-			body: chatInput,
-			room: game._id
-		});
-		chatInput = '';
+		if (chatInput) {
+			sendMessage(
+				{
+					sender: user._id,
+					body: chatInput,
+					room: game._id,
+					type: 'text',
+					inGame: true
+				},
+				gameMessagesStore
+			);
+			chatInput = '';
+		}
 	};
 </script>
 

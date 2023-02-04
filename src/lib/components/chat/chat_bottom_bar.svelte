@@ -5,6 +5,7 @@
 	// import { messagesStore } from '$lib/store/chat';
 	import { page } from '$app/stores';
 	import { sendMessage } from '$lib/utils/socket';
+	import { messagesStore } from '$lib/store/chat';
 
 	let drawerOpen = false;
 	const { room, user } = $page.data;
@@ -15,12 +16,17 @@
 	};
 
 	const onSend = () => {
-		sendMessage({
-			sender: user._id,
-			body: chatInput,
-			room: room._id
-		});
-		chatInput = '';
+		if (chatInput) {
+			sendMessage(
+				{
+					sender: user._id,
+					body: chatInput,
+					room: room._id
+				},
+				messagesStore
+			);
+			chatInput = '';
+		}
 	};
 </script>
 

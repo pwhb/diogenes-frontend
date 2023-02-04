@@ -25,12 +25,6 @@
 				scrollIntoView(id);
 			}
 		});
-
-		socket.on('receive-message', (message) => {
-			message.new = true;
-			// @ts-ignore
-			messagesStore.update((val) => [...val, message]);
-		});
 	});
 </script>
 

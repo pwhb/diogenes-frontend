@@ -14,6 +14,7 @@ export interface IMessage {
 	type: string;
 	createdAt: Date;
 	game?: IGame;
+	inGame: boolean;
 }
 
 const messageSchema = new Schema<IMessage>(
@@ -36,6 +37,10 @@ const messageSchema = new Schema<IMessage>(
 		type: {
 			type: String,
 			default: 'text'
+		},
+		inGame: {
+			type: Boolean,
+			default: false
 		}
 	},
 	{ timestamps: true }

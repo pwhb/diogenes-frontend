@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import type { IMessage } from '$lib/models/message';
+	import { messagesStore } from '$lib/store/chat';
 	import { sendMessage } from '$lib/utils/socket';
 	import Icon from '@iconify/svelte';
 
@@ -18,13 +19,16 @@
 		console.log(data);
 		const { success, updated, game } = data;
 		if (updated) {
-			sendMessage({
-				sender: user._id,
-				game: game,
-				body: `${user.username} joined the game`,
-				room: room._id,
-				type: 'game'
-			});
+			sendMessage(
+				{
+					sender: user._id,
+					game: game,
+					body: `${user.username} joined the game`,
+					room: room._id,
+					type: 'game'
+				},
+				messagesStore
+			);
 		}
 
 		goto(`/games/${game._id}`);
