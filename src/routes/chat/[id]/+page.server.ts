@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ params, fetch, locals }) => {
 	const url1 = `/api/rooms/${id}`;
 	const res1 = await fetch(url1);
 	const data1 = await res1.json();
-	const { success, room, messages } = data1;
+	const { room, messages } = data1;
 
 	const url2 = '/api/templates';
 	const res2 = await fetch(url2);

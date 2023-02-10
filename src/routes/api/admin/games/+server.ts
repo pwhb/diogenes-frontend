@@ -3,7 +3,7 @@ import gameTemplate from '$lib/models/gameTemplate';
 
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ request }: RequestEvent) => {
+export const GET: RequestHandler = async () => {
 	try {
 		await dbConnect();
 		const templates = await gameTemplate.find({}).select({}).lean();
@@ -17,8 +17,8 @@ export const GET: RequestHandler = async ({ request }: RequestEvent) => {
 export const POST: RequestHandler = async ({ request }: RequestEvent) => {
 	try {
 		await dbConnect();
-		const {} = await request.json();
-		const keys = [''];
+		// const { } = await request.json();
+		// const keys = [''];
 
 		const users = await gameTemplate.find({}).select({}).lean();
 		return json({ data: users }, { status: 200 });

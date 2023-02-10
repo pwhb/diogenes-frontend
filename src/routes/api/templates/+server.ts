@@ -4,7 +4,7 @@ import { validateBody } from '$lib/utils/validate';
 
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ request }: RequestEvent) => {
+export const GET: RequestHandler = async () => {
 	try {
 		await dbConnect();
 		const templates = await gameTemplate

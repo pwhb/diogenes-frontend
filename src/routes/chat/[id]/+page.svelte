@@ -4,10 +4,8 @@
 	import ChatAppBar from '$lib/components/chat/chat_app_bar.svelte';
 	import ChatBody from '$lib/components/chat/chat_body.svelte';
 	import ChatBottomBar from '$lib/components/chat/chat_bottom_bar.svelte';
-	import type { IMessage } from '$lib/models/message';
 	import { socket } from '$lib/socketio/socket';
 	import { messagesStore } from '$lib/store/chat';
-	import { scrollIntoView } from '$lib/utils/scroll';
 	import { onMount } from 'svelte';
 
 	const { room, user, messages } = $page.data;
