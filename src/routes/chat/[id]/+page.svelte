@@ -13,18 +13,17 @@
 	const { room, user, messages } = $page.data;
 
 	onMount(() => {
+		messages[messages.length - 1].new = true;
 		messagesStore.set(messages);
 
-		console.log(messages);
-
-		socket.emit('enter-room', { roomId: room._id, userId: user._id }, (res: any) => {
-			const lastMessage = $messagesStore[$messagesStore.length - 1] as IMessage;
-			if (lastMessage) {
-				console.log('lastMessage', lastMessage);
-				const id = lastMessage._id.toString();
-				scrollIntoView(id);
-			}
-		});
+		// console.log(messages);
+		// const lastMessage = messages[messages.length - 1] as IMessage;
+		// 	if (lastMessage) {
+		// 		console.log('lastMessage', lastMessage);
+		// 		const id = lastMessage._id.toString();
+		// 		scrollIntoView(id);
+		// 	}
+		socket.emit('enter-room', { roomId: room._id, userId: user._id }, (res: any) => {});
 	});
 </script>
 

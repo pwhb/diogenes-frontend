@@ -1,4 +1,7 @@
 <script>
+	import { onMount } from "svelte";
+
+
 	const state = {
 		topLeft: false,
 		topRight: false,
@@ -26,10 +29,14 @@
 	const stopKissing = () => {
 		console.log('stop kissing');
 	};
+
+	onMount(() => {
+		console.log("rps")
+	})
 </script>
 
 <div class="text-center">
-	<p>Kiss And Bliss</p>
+	<p>rock paper scissors</p>
 	<div class="grid grid-cols-3">
 		<div class="mx-auto p-2 -scale-x-100">
 			<img
