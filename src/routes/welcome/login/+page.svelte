@@ -5,10 +5,6 @@
 	let showPassword = false;
 
 	export let form: ActionData;
-
-	console.log('form', form);
-
-	console.log('page', $page.data);
 </script>
 
 <div class="hero min-h-screen bg-base-200">

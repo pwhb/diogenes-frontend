@@ -1,10 +1,32 @@
 <script lang="ts">
-	import { chatInput } from '$lib/store/chat';
 	import Icon from '@iconify/svelte';
+	import Drawer from './drawer.svelte';
+	// import { socket } from '$lib/socketio/socket';
+	// import { messagesStore } from '$lib/store/chat';
+	import { page } from '$app/stores';
+	import { sendMessage } from '$lib/utils/socket';
+	import { messagesStore } from '$lib/store/chat';
+
 	let drawerOpen = false;
-	export let onSend: () => void;
+	const { room, user } = $page.data;
+	let chatInput = '';
+
 	const onOpenDrawer = () => {
 		drawerOpen = !drawerOpen;
+	};
+
+	const onSend = () => {
+		if (chatInput) {
+			sendMessage(
+				{
+					sender: user._id,
+					body: chatInput,
+					room: room._id
+				},
+				messagesStore
+			);
+			chatInput = '';
+		}
 	};
 </script>
 
@@ -19,7 +41,7 @@
 					type="text"
 					placeholder="Say Hi ..."
 					class="input input-bordered w-full"
-					bind:value={$chatInput}
+					bind:value={chatInput}
 				/>
 
 				<button class="btn btn-square" type="submit">
@@ -27,10 +49,10 @@
 				</button>
 			</div>
 		</div>
-		{#if drawerOpen}
-			<div>
-				<p>drawer</p>
-			</div>
-		{/if}
 	</form>
+	{#if drawerOpen}
+		<div>
+			<Drawer />
+		</div>
+	{/if}
 </div>

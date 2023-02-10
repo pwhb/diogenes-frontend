@@ -1,0 +1,31 @@
+# @localhost_url =  http://[::1]:5173
+
+@localhost_url = http://localhost:5173
+
+@test_url = 
+
+@prod_url = https://diogenes.vercel.app/
+
+
+###
+GET {{localhost_url}}/api/templates
+
+###
+POST {{localhost_url}}/api/templates HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "rock paper scissors",
+    "modes": ["casual"],
+    "playerCounts": [2],
+    "description": "rock paper scissors",
+    "howToPlay":"rock paper scissors"
+}
+
+###
+PATCH {{localhost_url}}/api/templates/63da34d5a9664afa45e5b626 HTTP/1.1
+Content-Type: application/json
+
+{
+    "icon": "ph:number-square-nine-bold"
+}

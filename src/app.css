@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-clock {
+	font-family: 'Orbitron', sans-serif;
+}
+
+.game-chat {
+	mask: linear-gradient(#0000, rgba(0, 0, 0, 0.8));
+}
+
+.beating-heart {
+	/* background-color: #e2648c; */
+	background-image: url('/games/kissnbliss/heart.svg');
+	background-position: center;
+	background-repeat: no-repeat;
+	/* background-size: 20rem; */
+	animation: beating-heart-animation 1.2s infinite;
+}
+
+@keyframes beating-heart-animation {
+	0% {
+		background-size: 6rem;
+	}
+	50% {
+		background-size: 18rem;
+	}
+	100% {
+		background-size: 6rem;
+	}
+}
