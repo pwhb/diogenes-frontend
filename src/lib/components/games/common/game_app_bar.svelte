@@ -1,7 +1,5 @@
 <script>
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { getTheOtherUser } from '$lib/utils/get';
 	import Icon from '@iconify/svelte';
 	const { game } = $page.data;
 </script>
@@ -13,7 +11,7 @@
 		</a>
 	</div>
 	<div class="navbar-center">
-		<div>game</div>
+		<div>{game.template.name}</div>
 		<!-- <a class="normal-case text-xl" href="/">{getTheOtherUser(room.members, user._id).username}</a> -->
 	</div>
 	<div class="navbar-end">

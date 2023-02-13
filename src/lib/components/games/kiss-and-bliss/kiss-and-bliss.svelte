@@ -7,8 +7,8 @@
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	const { game, user } = $page.data;
-	const isLeft = game.players[0] === user._id;
-
+	const isLeft = game.players[0]._id === user._id;
+	console.log('log', game);
 	const state = {
 		topLeft: false,
 		topRight: false,
@@ -78,7 +78,6 @@
 </script>
 
 <div class="text-center">
-	<p>Kiss And Bliss</p>
 	<div
 		class={$gameState.rightKissing && $gameState.leftKissing
 			? 'beating-heart grid grid-cols-3'
@@ -101,16 +100,26 @@
 		</div>
 		<div class="mx-auto p-2" />
 		<div class="flex flex-row justify-center">
-			<img
-				src={$gameState.leftKissing ? svg.kissing : svg.smiling}
-				class={$gameState.leftKissing ? 'w-16' : 'w-16 -scale-x-100'}
-				alt="topLeft"
-			/>
-			<img
-				src={$gameState.rightKissing ? svg.kissing : svg.smiling}
-				class={$gameState.rightKissing ? 'w-16 -scale-x-100' : 'w-16'}
-				alt="topLeft"
-			/>
+			<div>
+				<img
+					src={$gameState.leftKissing ? svg.kissing : svg.smiling}
+					class={$gameState.leftKissing ? 'w-16' : 'w-16 -scale-x-100'}
+					alt="topLeft"
+				/>
+				<p class={game.players[0]._id === user._id ? 'font-medium' : 'text-secondary'}>
+					{game.players[0]._id === user._id ? 'you' : game.players[0].username}
+				</p>
+			</div>
+			<div>
+				<img
+					src={$gameState.rightKissing ? svg.kissing : svg.smiling}
+					class={$gameState.rightKissing ? 'w-16 -scale-x-100' : 'w-16'}
+					alt="topLeft"
+				/>
+				<p class={game.players[1]._id === user._id ? 'font-medium' : 'text-secondary'}>
+					{game.players[1]._id === user._id ? 'you' : game.players[1].username}
+				</p>
+			</div>
 		</div>
 		<div class="mx-auto p-2" />
 		<div class="mx-auto p-2 -scale-x-100">
@@ -131,7 +140,7 @@
 	</div>
 
 	<button
-		class="btn btn-outline btn-error w-full h-16"
+		class="btn btn-outline btn-warning max-w-2xl mx-auto"
 		on:mousedown={startKissing}
 		on:mouseup={stopKissing}
 		on:touchstart={startKissing}

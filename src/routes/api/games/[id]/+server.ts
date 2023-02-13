@@ -26,6 +26,8 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 		}
 
 		if (!doc.players.includes(_id)) {
+			console.log("not include", { doc, _id });
+
 			doc.players.push(_id);
 			if (doc.status === 'pending' && doc.players.length === doc.playerCount) {
 				doc.status = 'started';
@@ -33,6 +35,8 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 			await doc.save();
 			return json({ success: true, updated: true, game: doc }, { status: 200 });
 		}
+
+		const gameDoc = await doc.populate({ path: "players" })
 		const messages = await message
 			.find({ room: new mongoose.Types.ObjectId(id) })
 			.lean()
@@ -46,7 +50,7 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 				}
 			});
 
-		return json({ success: true, updated: false, game: doc, messages }, { status: 200 });
+		return json({ success: true, updated: false, game: gameDoc, messages }, { status: 200 });
 	} catch (err) {
 		console.error(err);
 		return json({ success: false, error: err }, { status: 400 });

@@ -11,7 +11,10 @@
 	const { room, user, messages } = $page.data;
 
 	onMount(() => {
-		messages[messages.length - 1].new = true;
+		if (messages[0]) {
+			messages[messages.length - 1].new = true;
+		}
+
 		messagesStore.set(messages);
 
 		// console.log(messages);
