@@ -6,7 +6,7 @@
 	const { rooms, user } = $page.data;
 </script>
 
-<div class="mx-16">
+<div class="mx-2 md:mx-16">
 	<h1>Friend List</h1>
 
 	{#if rooms}

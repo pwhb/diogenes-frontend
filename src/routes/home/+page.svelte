@@ -3,7 +3,7 @@
 	import { followerStore, followedStore } from '$lib/store/home';
 </script>
 
-<div class="mx-16">
+<div class="mx-2 md:mx-16">
 	<h1>Search Friends</h1>
 	<SearchBar />
 </div>

@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import { socket } from '$lib/socketio/socket';
 	import { gameState } from '$lib/store/game';
+	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	const { game, user } = $page.data;
 	const isLeft = game.players[0] === user._id;
@@ -79,7 +80,9 @@
 <div class="text-center">
 	<p>Kiss And Bliss</p>
 	<div
-		class={$gameState.rightKissing && $gameState.leftKissing ? 'beating-heart grid grid-cols-3' : 'grid grid-cols-3'}
+		class={$gameState.rightKissing && $gameState.leftKissing
+			? 'beating-heart grid grid-cols-3'
+			: 'grid grid-cols-3'}
 	>
 		<div class="mx-auto p-2 -scale-x-100">
 			<img
@@ -128,11 +131,12 @@
 	</div>
 
 	<button
-		class="btn btn-outline hover:bg-red-500 w-full h-16"
+		class="btn btn-outline btn-error w-full h-16"
 		on:mousedown={startKissing}
 		on:mouseup={stopKissing}
 		on:touchstart={startKissing}
 		on:touchend={stopKissing}
-		><img class="h-12" src="/games/kissnbliss/kiss-button.svg" alt="" /></button
 	>
+		<Icon icon="fxemoji:kissmark" width={48} />
+	</button>
 </div>
