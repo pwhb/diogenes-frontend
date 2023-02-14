@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import { sendMessage } from '$lib/utils/socket';
 	import GameChatBody from './game_chat_body.svelte';
-	import { gameMessagesStore } from '$lib/store/game';
+	import { gameMessagesStore, unreadCount } from '$lib/store/game';
 
 	let chatOpen = false;
 	const { room, user, game } = $page.data;
@@ -59,8 +59,11 @@
 	</div>
 {:else}
 	<div class="fixed bottom-3 right-0 left-0 text-center">
-		<button class="btn btn-outline" on:click={onChatOpen}>
-			<Icon icon="fa6-solid:comment" />
+		<button class="btn gap-2" on:click={onChatOpen}>
+			<Icon icon="fa6-solid:comment" width={24} />
+			{#if $unreadCount}
+				<div class="badge badge-secondary text-xs">{$unreadCount}</div>
+			{/if}
 		</button>
 	</div>
 {/if}

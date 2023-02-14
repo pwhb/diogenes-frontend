@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { IMessage } from '$lib/models/message';
-	import { gameMessagesStore } from '$lib/store/game';
+	import { gameMessagesStore, unreadCount } from '$lib/store/game';
 
 	import { scrollIntoView } from '$lib/utils/scroll';
 	import { onMount } from 'svelte';
 
 	import Message from '../../chat/message.svelte';
 	onMount(() => {
+		unreadCount.set(0)
 		const lastMessage = $gameMessagesStore[$gameMessagesStore.length - 1] as IMessage;
 		if (lastMessage) {
 			console.log('lastMessage', lastMessage);
