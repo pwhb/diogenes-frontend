@@ -4,6 +4,7 @@
 	import { getTheOtherUser } from '$lib/utils/get';
 	import Icon from '@iconify/svelte';
 	const { room, user } = $page.data;
+	const otherUser = getTheOtherUser(room.members, user._id)
 
 	const goBack = () => {
 		const path = '/home/chat';
@@ -18,7 +19,7 @@
 		</button>
 	</div>
 	<div class="navbar-center">
-		<a class="normal-case text-xl" href="/">{getTheOtherUser(room.members, user._id).username}</a>
+		<a class="normal-case text-xl" href={`/users/${otherUser._id}`}>{otherUser.username}</a>
 	</div>
 	<div class="navbar-end">
 		<!-- <button class="btn btn-ghost btn-circle">
