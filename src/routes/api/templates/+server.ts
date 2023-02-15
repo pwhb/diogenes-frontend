@@ -8,7 +8,7 @@ export const GET: RequestHandler = async () => {
 	try {
 		await dbConnect();
 		const templates = await gameTemplate
-			.find({})
+			.find({ isActive: true })
 			.select({ createdAt: false, updatedAt: false, __v: false })
 			.lean();
 		return json({ success: true, templates }, { status: 200 });

@@ -10,6 +10,7 @@ export interface IGameTemplate {
 	description: string;
 	howToPlay: string;
 	icon: string;
+	isActive: boolean
 }
 
 const gameTemplateSchema = new Schema<IGameTemplate>(
@@ -20,7 +21,8 @@ const gameTemplateSchema = new Schema<IGameTemplate>(
 		playerCounts: { type: [Number] },
 		description: { type: String },
 		howToPlay: { type: String },
-		icon: { type: String }
+		icon: { type: String },
+		isActive: { type: Boolean, default: true }
 	},
 	{ timestamps: true }
 );
