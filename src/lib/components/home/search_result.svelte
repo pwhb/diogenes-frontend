@@ -3,9 +3,11 @@
 	import { followedStore } from '$lib/store/home';
 
 	export let searchedUser: IUser;
+	let loading = false;
 	let alreadyFollowing = $followedStore && $followedStore.includes(searchedUser._id as never);
 
 	const onClick = async () => {
+		loading = true;
 		if (!alreadyFollowing) {
 			const url = `/api/users/${alreadyFollowing ? 'unfollow' : 'follow'}`;
 
@@ -25,12 +27,19 @@
 				});
 			}
 		}
+		loading = false;
 	};
 </script>
 
 <div class="p-3 flex flex-row justify-between">
 	<p>{searchedUser.username}</p>
-	<button class="btn btn-success btn-xs" disabled={alreadyFollowing} on:click={onClick}
-		>{alreadyFollowing ? 'following' : 'follow'}</button
+	<button
+		class={loading ? 'btn btn-success btn-xs loading' : 'btn btn-success btn-xs'}
+		disabled={alreadyFollowing || loading}
+		on:click={onClick}
 	>
+		{#if !loading}
+			{alreadyFollowing ? 'following' : 'follow'}
+		{/if}
+	</button>
 </div>

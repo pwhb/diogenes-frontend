@@ -3,8 +3,10 @@
 	import Icon from '@iconify/svelte';
 	import SearchResult from './search_result.svelte';
 	let searchInput = '';
+	let loading = false;
 
 	const searchUser = async () => {
+		loading = true
 		const url = `/api/users?q=${searchInput}&active=true`;
 		const res = await fetch(url);
 		const { data } = await res.json();
@@ -12,6 +14,7 @@
 		if (data) {
 			searchResults.set(data);
 		}
+		loading = false
 	};
 </script>
 
@@ -23,8 +26,10 @@
 			class="input input-bordered w-full"
 			bind:value={searchInput}
 		/>
-		<button class="btn btn-square" on:click={searchUser}>
-			<Icon icon="material-symbols:person-search-rounded" width="24" />
+		<button disabled={loading} class={loading ? 'btn btn-square loading' : 'btn btn-square'} on:click={searchUser}>
+			{#if !loading}
+				<Icon icon="material-symbols:person-search-rounded" width="24" />
+			{/if}
 		</button>
 	</div>
 </div>
