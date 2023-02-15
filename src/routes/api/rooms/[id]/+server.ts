@@ -26,13 +26,7 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 			.lean()
 			.populate({
 				path: 'sender',
-			}).populate({
-				path: 'game',
-				populate: {
-					path: 'template'
-				}
 			})
-
 
 		if (!fetchedRoom) {
 			return json({ success: false, error: 'unauthorized' }, { status: 401 });
