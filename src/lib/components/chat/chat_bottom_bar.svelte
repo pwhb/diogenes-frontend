@@ -33,25 +33,27 @@
 	let timeout: any;
 	let typing = false;
 	const timeoutFunction = () => {
+		console.log('stop', user);
 		typing = false;
 		socket.emit('stop-typing', { roomId: room._id, username: user.username });
 	};
 
 	const onKeyDownNotEnter = () => {
-		if (typing === false) {
-			typing = true;
-			console.log(user);
-			socket.emit('start-typing', { roomId: room._id, username: user.username });
+		if (typing) {
+		
+			clearTimeout(timeout);
 			timeout = setTimeout(timeoutFunction, 1000);
 		} else {
-			clearTimeout(timeout);
+			typing = true;
+			console.log('start', user);
+			socket.emit('start-typing', { roomId: room._id, username: user.username });
 			timeout = setTimeout(timeoutFunction, 1000);
 		}
 	};
 </script>
 
 <div class="max-w-xl w-full bg-base-100 mx-auto">
-	{#if $typingUser}
+	{#if $typingUser && $typingUser !== user.username}
 		<p>{$typingUser} is typing ...</p>
 	{/if}
 	<form on:submit|preventDefault={onSend}>

@@ -27,11 +27,12 @@ socket.on('update-state', (state: any) => {
 });
 
 socket.on("on-start-typing", (username: any) => {
+    console.log("on start typing");
     typingUser.set(username)
 })
 
 socket.on("on-stop-typing", (username: any) => {
-    console.log("stop typing");
+    console.log("on stop typing");
     
     typingUser.set("")
 })
