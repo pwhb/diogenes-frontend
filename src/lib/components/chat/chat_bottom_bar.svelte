@@ -5,7 +5,8 @@
 	// import { messagesStore } from '$lib/store/chat';
 	import { page } from '$app/stores';
 	import { sendMessage } from '$lib/utils/socket';
-	import { messagesStore } from '$lib/store/chat';
+	import { messagesStore, typingUser } from '$lib/store/chat';
+	import { socket } from '$lib/socketio/socket';
 
 	let drawerOpen = false;
 	const { room, user } = $page.data;
@@ -28,9 +29,31 @@
 			chatInput = '';
 		}
 	};
+
+	let timeout: any;
+	let typing = false;
+	const timeoutFunction = () => {
+		typing = false;
+		socket.emit('stop-typing', { roomId: room._id, username: user.username });
+	};
+
+	const onKeyDownNotEnter = () => {
+		if (typing === false) {
+			typing = true;
+			console.log(user);
+			socket.emit('start-typing', { roomId: room._id, username: user.username });
+			timeout = setTimeout(timeoutFunction, 1000);
+		} else {
+			clearTimeout(timeout);
+			timeout = setTimeout(timeoutFunction, 1000);
+		}
+	};
 </script>
 
 <div class="max-w-xl w-full bg-base-100 mx-auto">
+	{#if $typingUser}
+		<p>{$typingUser} is typing ...</p>
+	{/if}
 	<form on:submit|preventDefault={onSend}>
 		<div class="form-control w-full">
 			<div class="input-group">
@@ -41,6 +64,7 @@
 					type="text"
 					placeholder="Say Hi ..."
 					class="input input-bordered w-full"
+					on:input={onKeyDownNotEnter}
 					bind:value={chatInput}
 				/>
 

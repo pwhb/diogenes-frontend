@@ -1,4 +1,4 @@
-import { messagesStore } from '$lib/store/chat';
+import { messagesStore, typingUser } from '$lib/store/chat';
 import { gameMessagesStore, gameState, unreadCount, } from '$lib/store/game';
 import ioClient from 'socket.io-client';
 
@@ -22,7 +22,16 @@ socket.on('receive-message', (message: any) => {
 });
 
 socket.on('update-state', (state: any) => {
-
     console.log("receive", state)
     gameState.set(state)
 });
+
+socket.on("on-start-typing", (username: any) => {
+    typingUser.set(username)
+})
+
+socket.on("on-stop-typing", (username: any) => {
+    console.log("stop typing");
+    
+    typingUser.set("")
+})
