@@ -23,14 +23,26 @@
 	0% {
 		background-size: 6rem;
 	}
+
 	50% {
 		background-size: 18rem;
 	}
+
 	100% {
 		background-size: 6rem;
 	}
 }
 
-.rotating {
+.spinner {
 	animation: rotate 0.8s infinite;
-  }
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(-180deg);
+	}
+
+	100% {
+		transform: rotate(180deg);
+	}
+}

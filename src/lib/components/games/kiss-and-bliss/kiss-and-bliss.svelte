@@ -113,7 +113,7 @@
 						alt="topLeft"
 					/>
 					<p class={game.players[0]._id === user._id ? 'font-medium' : 'text-secondary'}>
-						{game.players[0]._id === user._id ? 'you' : game.players[0].username}
+						{isLeft ? 'you' : game.players[0].username}
 					</p>
 				</div>
 				<div>
@@ -123,7 +123,7 @@
 						alt="topLeft"
 					/>
 					<p class={game.players[1]._id === user._id ? 'font-medium' : 'text-secondary'}>
-						{game.players[1]._id === user._id ? 'you' : game.players[1].username}
+						{isLeft ? game.players[1].username : 'you'}
 					</p>
 				</div>
 			</div>
