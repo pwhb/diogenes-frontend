@@ -59,11 +59,15 @@
 	</div>
 {:else}
 	<div class="fixed bottom-3 right-0 left-0 text-center">
-		<button class="btn gap-2" on:click={onChatOpen}>
-			<Icon icon="fa6-solid:comment" width={24} />
+		<div class="indicator">
 			{#if $unreadCount}
-				<div class="badge badge-secondary text-xs">{$unreadCount}</div>
+				<span class="indicator-item badge badge-secondary text-xs">{$unreadCount}</span>
+				<!-- <div class="badge badge-secondary text-xs">{$unreadCount}</div> -->
 			{/if}
-		</button>
+
+			<button class="btn" on:click={onChatOpen}>
+				<Icon icon="fa6-solid:comment" width={24} />
+			</button>
+		</div>
 	</div>
 {/if}
