@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/stores';
+	import Logo from '../common/logo.svelte';
 </script>
 
 <div class="navbar bg-base-100">
@@ -31,7 +32,9 @@
 		</div> -->
 	</div>
 	<div class="navbar-center">
-		<a class="btn btn-ghost normal-case text-xl" href="/">Diogenes</a>
+		<a class="btn btn-ghost normal-case text-xl" href="/">
+			<Logo />
+		</a>
 	</div>
 	<div class="navbar-end">
 		<!-- <button class="btn btn-ghost btn-circle">

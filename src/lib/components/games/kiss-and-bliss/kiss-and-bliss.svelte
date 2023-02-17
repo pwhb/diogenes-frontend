@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	// @ts-nocheck
 
 	import { page } from '$app/stores';
@@ -73,10 +73,12 @@
 	};
 
 	onMount(() => {
-		gameState.set(state);
 		console.log('kiss');
-		socket.emit('start-game', { room: game._id, state: $gameState });
-		loading = false;
+		socket.emit('start-game', { room: game._id, slug: game.template.slug }, (res: any) => {
+			console.log('state from socket', res);
+			gameState.set(res);
+			loading = false;
+		});
 	});
 </script>
 
@@ -122,8 +124,8 @@
 						class={$gameState.rightKissing ? 'w-16 -scale-x-100' : 'w-16'}
 						alt="topLeft"
 					/>
-					<p class={game.players[1]._id === user._id ? 'font-medium' : 'text-secondary'}>
-						{isLeft ? game.players[1].username : 'you'}
+					<p class={game.players[1]?._id === user._id ? 'font-medium' : 'text-secondary'}>
+						{isLeft ? (game.players[1] ? game.players[1].username : 'waiting ...') : 'you'}
 					</p>
 				</div>
 			</div>

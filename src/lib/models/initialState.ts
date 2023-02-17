@@ -5,14 +5,17 @@ const { Schema, model, models } = mongoose;
 
 export interface IInitialState {
     _id: ObjectId;
-    template: ObjectId,
+    slug: string,
+    state: {}
 }
 
 const initialStateSchema = new Schema<IInitialState>(
     {
-        template: {
-            type: Schema.Types.ObjectId,
-            ref: gameTemplate.modelName
+        slug: {
+            type: String
+        },
+        state: {
+            type: Object
         },
     },
     { timestamps: true, strict: false }

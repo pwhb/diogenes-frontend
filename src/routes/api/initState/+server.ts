@@ -16,8 +16,8 @@ export const GET: RequestHandler = async ({ }: RequestEvent) => {
 export const POST: RequestHandler = async ({ request }: RequestEvent) => {
     try {
         await dbConnect();
-        const { template, state } = await request.json()
-        const initState = await initialState.create({ template, state })
+        const { slug, state } = await request.json()
+        const initState = await initialState.create({ slug, state })
         return json({ data: initState }, { status: 200 });
     } catch (err) {
         console.error(err);

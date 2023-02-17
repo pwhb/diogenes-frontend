@@ -1,0 +1,35 @@
+@localhost_url =  http://[::1]:5173
+
+# @localhost_url = http://localhost:5173
+
+@test_url = 
+
+@prod_url = https://diogenes.vercel.app/
+
+
+###
+GET {{localhost_url}}/api/templates
+
+###
+POST {{localhost_url}}/api/initState
+Content-Type: application/json
+
+{
+    "slug": "kiss-n-bliss",
+    "state": {
+        "topLeft": false,
+		"topRight": false,
+		"bottomLeft": false,
+		"bottomRight": false,
+		"leftKissing": false,
+		"rightKissing": false
+    }
+}
+
+###
+PATCH {{localhost_url}}/api/templates/63da34d5a9664afa45e5b626 HTTP/1.1
+Content-Type: application/json
+
+{
+    "icon": "ph:number-square-nine-bold"
+}

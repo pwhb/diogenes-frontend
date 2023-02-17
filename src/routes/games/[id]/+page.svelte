@@ -15,14 +15,18 @@
 	import { onDestroy, onMount } from 'svelte';
 
 	const { game, user, messages } = $page.data;
-	console.log("game view", game);
-	
+	console.log('game view', game);
+
 	onMount(() => {
 		gameMessagesStore.set(messages);
 
-		socket.emit('enter-room', { roomId: game._id, userId: user._id }, (res: any) => {
-			console.log(res);
-		});
+		socket.emit(
+			'enter-room',
+			{ roomId: game._id, userId: user._id },
+			(res: any) => {
+				console.log(res);
+			}
+		);
 	});
 
 	onDestroy(() => {
