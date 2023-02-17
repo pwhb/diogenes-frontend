@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 	import LoadingSpinner from '$lib/components/common/loading_spinner.svelte';
 	import { socket } from '$lib/socketio/socket';
-	import { gameState } from '$lib/store/game';
+	import { gameLoading, gameState } from '$lib/store/game';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	const { game, user } = $page.data;
@@ -71,18 +71,9 @@
 		}
 		socket.emit('update-game', { room: game._id, state: $gameState });
 	};
-
-	onMount(() => {
-		console.log('kiss');
-		socket.emit('start-game', { room: game._id, slug: game.template.slug }, (res: any) => {
-			console.log('state from socket', res);
-			gameState.set(res);
-			loading = false;
-		});
-	});
 </script>
 
-{#if loading}
+{#if $gameLoading}
 	<LoadingSpinner />
 {:else}
 	<div class="text-center">

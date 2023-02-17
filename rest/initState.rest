@@ -15,14 +15,10 @@ POST {{localhost_url}}/api/initState
 Content-Type: application/json
 
 {
-    "slug": "kiss-n-bliss",
+    "slug": "guess-the-number",
     "state": {
-        "topLeft": false,
-		"topRight": false,
-		"bottomLeft": false,
-		"bottomRight": false,
-		"leftKissing": false,
-		"rightKissing": false
+        "secretNumber": 54,
+        "guesses": []
     }
 }
 

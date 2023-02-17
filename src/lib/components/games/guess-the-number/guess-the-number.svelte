@@ -1,14 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import LoadingSpinner from '$lib/components/common/loading_spinner.svelte';
 	import { socket } from '$lib/socketio/socket';
-	import { gameState } from '$lib/store/game';
+	import { gameLoading, gameState } from '$lib/store/game';
 	import { onMount } from 'svelte';
 	const { game, user } = $page.data;
 	const competitive = false;
 
-	const trueAnswer = 43;
-
-	let loading = true;
 	const isLeft = game.players[0]._id === user._id;
 
 	const guesses = [
@@ -26,29 +24,38 @@
 	const submitGuess = () => {
 		socket.emit('');
 	};
-	onMount(() => {
-		gameState.set(state);
-		console.log('kiss');
-		socket.emit('start-game', { room: game._id, state: $gameState });
-		loading = false;
-	});
 </script>
 
-<div class="font-clock">
-	<table class="table w-full text-center">
-		<thead>
-			<tr>
-				<th>user1</th>
-				<th>user2</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each guesses as guess}
+{#if $gameLoading}
+	<LoadingSpinner />
+{:else}
+	<div class="font-clock">
+		<table class="table w-full text-center">
+			<thead>
+				<tr>
+					<th>
+						<p class={game.players[0]._id === user._id ? 'font-medium' : 'text-secondary'}>
+							{isLeft ? 'you' : game.players[0].username}
+						</p></th
+					>
+					<th>
+						<p class={game.players[1]?._id === user._id ? 'font-medium' : 'text-secondary'}>
+							{isLeft ? (game.players[1] ? game.players[1].username : 'waiting ...') : 'you'}
+						</p></th
+					>
+				</tr>
+			</thead>
+			<tbody>
+				{#if $gameState && $gameState.guesses}
+				{#each $gameState.guesses as guess}
 				<tr>
 					<td class="text-emerald-400">{guess[0]}</td>
 					<td>{guess[1]}</td>
 				</tr>
 			{/each}
-		</tbody>
-	</table>
-</div>
+				{/if}
+				
+			</tbody>
+		</table>
+	</div>
+{/if}

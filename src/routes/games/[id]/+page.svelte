@@ -10,7 +10,7 @@
 
 	import { socket } from '$lib/socketio/socket';
 
-	import { gameMessagesStore } from '$lib/store/game';
+	import { gameLoading, gameMessagesStore, gameState } from '$lib/store/game';
 
 	import { onDestroy, onMount } from 'svelte';
 
@@ -20,13 +20,16 @@
 	onMount(() => {
 		gameMessagesStore.set(messages);
 
-		socket.emit(
-			'enter-room',
-			{ roomId: game._id, userId: user._id },
-			(res: any) => {
-				console.log(res);
-			}
-		);
+		socket.emit('enter-room', { roomId: game._id, userId: user._id }, (res: any) => {
+			console.log(res);
+		});
+		console.log('before start', { room: game._id, slug: game.template.slug });
+
+		socket.emit('start-game', { room: game._id, slug: game.template.slug }, (res: any) => {
+			console.log('state from socket', res);
+			gameState.set(res);
+			gameLoading.set(false);
+		});
 	});
 
 	onDestroy(() => {
