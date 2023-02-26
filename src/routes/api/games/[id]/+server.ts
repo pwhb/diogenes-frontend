@@ -1,5 +1,6 @@
 import dbConnect from '$lib/database/connectDB';
 import game from '$lib/models/game';
+import initialState from '$lib/models/initialState';
 import message from '$lib/models/message';
 import type { IUser } from '$lib/models/user';
 import { decodeJwt } from '$lib/utils/jwt';
@@ -31,6 +32,13 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 			doc.players.push(_id);
 			if (doc.status === 'pending' && doc.players.length === doc.playerCount) {
 				doc.status = 'started';
+				const { slug } = doc.template
+				const { state } = await initialState.findOne({ slug }).lean()
+				if (slug === "guess-the-number") {
+					// 0-99
+					state.secretNumber = Math.floor(Math.random() * 100)
+				}
+				doc.state = state
 			}
 			await doc.save();
 			return json({ success: true, updated: true, game: doc }, { status: 200 });

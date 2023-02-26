@@ -16,7 +16,8 @@ export interface IGame {
 	players: IUser[];
 	playerCount: number;
 	createdBy: IUser;
-	room: IRoom
+	room: IRoom,
+	state: object
 }
 
 const gameSchema = new Schema<IGame>(
@@ -41,6 +42,9 @@ const gameSchema = new Schema<IGame>(
 		createdBy: {
 			type: Schema.Types.ObjectId,
 			ref: user.modelName
+		},
+		state: {
+			type: Object
 		}
 	},
 	{ timestamps: true }
