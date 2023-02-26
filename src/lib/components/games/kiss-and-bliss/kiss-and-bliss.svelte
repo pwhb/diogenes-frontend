@@ -30,8 +30,13 @@
 	};
 
 	const competitive = false;
+	// kissing-6174.mp3
+	// kiss.wav
+	const kissSound = new Audio('/sounds/kissing-6174.mp3');
+	kissSound.loop = true;
 
 	const startKissing = () => {
+		
 		console.log('start kissing');
 		console.log({ isLeft, $gameState });
 		if (isLeft) {
@@ -50,9 +55,14 @@
 			});
 		}
 		socket.emit('update-game', { room: game._id, state: $gameState });
+
+		if ($gameState.leftKissing && $gameState.rightKissing) {
+			kissSound.play();
+		}
 	};
 
 	const stopKissing = () => {
+		kissSound.pause()
 		console.log('stop kissing');
 		if (isLeft) {
 			gameState.update((state) => {
