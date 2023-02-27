@@ -7,7 +7,7 @@
 {#if user.avatar}
 	<div class="avatar">
 		<div class="w-16 rounded-full">
-			<img src={user.avatar} alt={user.username} />
+			<img src={user.avatar.url} alt={user.username} />
 		</div>
 	</div>
 {:else}
