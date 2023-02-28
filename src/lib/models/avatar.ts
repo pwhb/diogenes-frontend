@@ -7,13 +7,15 @@ export interface IAvatar {
     name: string;
     type: string;
     path: string;
+    isActive: boolean;
 }
 
 const avatarSchema = new Schema<IAvatar>(
     {
         name: { type: String },
         type: { type: String, default: "original" },
-        path: { type: String }
+        path: { type: String },
+        isActive: { type: Boolean, default: true }
     },
     { timestamps: true }
 );

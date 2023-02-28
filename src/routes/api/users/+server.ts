@@ -1,5 +1,7 @@
 import dbConnect from '$lib/database/connectDB';
-import user from '$lib/models/user';
+import user, { type IUser } from '$lib/models/user';
+import { decodeJwt, getJwt } from '$lib/utils/jwt';
+import { getUpdateDocument } from '$lib/utils/validate';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url, locals }: RequestEvent) => {
@@ -23,3 +25,33 @@ export const GET: RequestHandler = async ({ url, locals }: RequestEvent) => {
 		return json({ data: [], error: err }, { status: 400 });
 	}
 };
+
+export const PATCH: RequestHandler = async ({ request, cookies }: RequestEvent) => {
+	try {
+		const oldToken = cookies.get('token') as string;
+		if (!oldToken) {
+			return json({ success: false, error: 'unauthorized' }, { status: 401 });
+		}
+		const oldUser = decodeJwt(oldToken) as IUser;
+		const body = await request.json();
+		const keys = ["avatar"]
+		const update = getUpdateDocument(body, keys)
+		await dbConnect();
+
+		const { _id, username, role, avatar } = await user.findByIdAndUpdate(oldUser._id, update, { new: true })
+		const token = getJwt({ _id, username, role, avatar });
+
+		cookies.set('token', token, {
+			httpOnly: true,
+			path: '/',
+			secure: true,
+			sameSite: 'strict',
+			maxAge: 60 * 60 * 24 // 1 day
+		});
+
+		return json({ success: true }, { status: 201 });
+	} catch (err) {
+		console.error(err);
+		return json({ success: false, error: err }, { status: 400 });
+	}
+}

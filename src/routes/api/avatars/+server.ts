@@ -5,7 +5,8 @@ import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 export const GET: RequestHandler = async ({ }: RequestEvent) => {
     try {
         await dbConnect();
-        const avatars = await avatar.find().select({ _id: false, createdAt: false, updatedAt: false, __v: false }).lean()
+
+        const avatars = await avatar.find({ isActive: true }).select({ _id: false, createdAt: false, updatedAt: false, __v: false, isActive: false }).lean()
         const total = await avatar.find().countDocuments()
         return json({ data: avatars, total }, { status: 200 });
     } catch (err) {
