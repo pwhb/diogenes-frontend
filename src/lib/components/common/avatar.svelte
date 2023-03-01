@@ -1,12 +1,13 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { IUser } from '$lib/models/user';
 
-	export let user: IUser;
+	export let user: IUser = $page.data.user;
 </script>
 
 {#if user.avatar}
 	<div class="avatar">
-		<div class="w-16 rounded-full">
+		<div class="w-16 rounded-full bg-gray-100">
 			<img src={user.avatar.url} alt={user.username} />
 		</div>
 	</div>
