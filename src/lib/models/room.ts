@@ -9,6 +9,7 @@ export interface IRoom {
 	isActive: boolean;
 	name?: string;
 	bookmarkedBy: [];
+	lastMessage: object
 }
 
 const roomSchema = new Schema<IRoom>(
@@ -35,7 +36,10 @@ const roomSchema = new Schema<IRoom>(
 				type: Schema.Types.ObjectId,
 				ref: user.modelName
 			}
-		]
+		],
+		lastMessage: {
+			type: Object
+		}
 	},
 	{ timestamps: true }
 );

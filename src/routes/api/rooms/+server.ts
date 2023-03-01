@@ -1,5 +1,5 @@
 import dbConnect from '$lib/database/connectDB';
-import message from '$lib/models/message';
+// import message from '$lib/models/message';
 import room from '$lib/models/room';
 
 import type { IUser } from '$lib/models/user';
@@ -19,12 +19,12 @@ export const GET: RequestHandler = async ({ cookies }: RequestEvent) => {
 		const rooms = await room
 			.find({ members: _id })
 			.populate('members', '_id username avatar')
-			.lean();
+			.lean().sort({ updatedAt: -1 });
 
-		for (let room of rooms) {
-			const lastMessage = await message.findOne({ room: room._id }).sort({ createdAt: -1 });
-			room.lastMessage = lastMessage;
-		}
+		// for (let room of rooms) {
+		// 	const lastMessage = await message.findOne({ room: room._id }).sort({ createdAt: -1 }).populate("sender");
+		// 	room.lastMessage = lastMessage;
+		// }
 
 		return json({ success: true, rooms }, { status: 200 });
 	} catch (err) {
