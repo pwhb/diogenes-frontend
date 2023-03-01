@@ -1,6 +1,6 @@
 export const validateBody = (body: any, keys: string[]) => {
 	for (let key of keys) {
-		if (!body[key] !== null) {
+		if (body[key] === null) {
 			return false;
 		}
 	}
