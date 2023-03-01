@@ -42,9 +42,9 @@ const login: Action = async ({ request, cookies }) => {
 		invalid.password = 'wrong password';
 		return fail(400, { invalid, previous });
 	}
-	const { _id, role, avatar } = oldUser;
+	const { _id, role, avatar, bio } = oldUser;
 
-	const token = getJwt({ _id, username, role, avatar });
+	const token = getJwt({ _id, username, role, avatar, bio });
 
 	cookies.set('token', token, {
 		httpOnly: true,

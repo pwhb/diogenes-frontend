@@ -41,9 +41,9 @@ const register: Action = async ({ request, cookies }) => {
 
 	const hashedPassword = await hash(password as string);
 
-	const { _id, role, avatar } = await user.create({ username, password: hashedPassword });
+	const { _id, role, avatar, bio } = await user.create({ username, password: hashedPassword });
 
-	const token = getJwt({ _id, username, role, avatar });
+	const token = getJwt({ _id, username, role, avatar, bio });
 
 	cookies.set('token', token, {
 		httpOnly: true,

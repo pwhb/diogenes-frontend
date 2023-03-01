@@ -40,12 +40,11 @@
 	};
 </script>
 
-
 <div class="modal">
 	<div class="modal-box relative">
 		<label for="avatar-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
 		<h3 class="text-lg font-bold">Choose your avatar</h3>
-		<div class="grid grid-cols-5 gap-5 my-5">
+		<form class="grid grid-cols-4 gap-5 my-5">
 			{#each avatars as { path }, index}
 				<button on:click={onSelect} name={path}>
 					<div class="avatar">
@@ -59,9 +58,11 @@
 					</div>
 				</button>
 			{/each}
-		</div>
+		</form>
 		<button
-			class={submitLoading ? 'btn btn-active btn-primary loading' : 'btn btn-active btn-primary'}
+			class={submitLoading
+				? 'btn btn-active btn-primary btn-xs loading'
+				: 'btn btn-active btn-primary btn-xs'}
 			disabled={submitLoading}
 			on:click={onSubmitAvatar}>Submit</button
 		>

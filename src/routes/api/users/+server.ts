@@ -34,12 +34,15 @@ export const PATCH: RequestHandler = async ({ request, cookies }: RequestEvent) 
 		}
 		const oldUser = decodeJwt(oldToken) as IUser;
 		const body = await request.json();
-		const keys = ["avatar"]
+		const keys = ["avatar", "username", "bio"]
+		if (body.avatar && body.avatar.url) {
+			body.avatar.url = body.avatar.url.replace("http://localhost:5173", "https://diogenes-web-git-test-pwhb.vercel.app")
+		}
 		const update = getUpdateDocument(body, keys)
 		await dbConnect();
 
-		const { _id, username, role, avatar } = await user.findByIdAndUpdate(oldUser._id, update, { new: true })
-		const token = getJwt({ _id, username, role, avatar });
+		const { _id, username, role, avatar, bio } = await user.findByIdAndUpdate(oldUser._id, update, { new: true })
+		const token = getJwt({ _id, username, role, avatar, bio });
 
 		cookies.set('token', token, {
 			httpOnly: true,
