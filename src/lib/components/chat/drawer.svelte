@@ -4,8 +4,10 @@
 	import { sendMessage } from '$lib/utils/socket';
 	import Icon from '@iconify/svelte';
 	import type { ObjectId } from 'mongoose';
+	import LoadingSpinner from '../common/loading_spinner.svelte';
 
 	const { room, templates, user } = $page.data;
+	let drawerLoading = false;
 
 	const createGame = async (payload: {
 		template: any;
@@ -13,6 +15,7 @@
 		playerCount: any;
 		room: ObjectId;
 	}) => {
+		drawerLoading = true;
 		const url = '/api/games';
 		const options = {
 			method: 'POST',
@@ -34,23 +37,29 @@
 			},
 			messagesStore
 		);
+
+		drawerLoading = false;
 	};
 </script>
 
-<div class="grid grid-cols-2 gap-1 m-2 text-center">
-	{#each templates as { _id, name, icon, slug, modes, playerCounts }}
-		<button
-			class="border h-30 border-dashed py-2 rounded-md hover:opacity-75"
-			on:click={() =>
-				createGame({
-					template: _id,
-					mode: modes[0],
-					playerCount: playerCounts[0],
-					room: room._id
-				})}
-		>
-			<Icon {icon} width="64" class="mx-auto" />
-			<p>{name}</p>
-		</button>
-	{/each}
-</div>
+{#if drawerLoading}
+	<LoadingSpinner />
+{:else}
+	<div class="grid grid-cols-2 gap-1 m-2 text-center">
+		{#each templates as { _id, name, icon, slug, modes, playerCounts }}
+			<button
+				class="border h-30 border-dashed py-2 rounded-md hover:opacity-75"
+				on:click={() =>
+					createGame({
+						template: _id,
+						mode: modes[0],
+						playerCount: playerCounts[0],
+						room: room._id
+					})}
+			>
+				<Icon {icon} width="64" class="mx-auto" />
+				<p>{name}</p>
+			</button>
+		{/each}
+	</div>
+{/if}
