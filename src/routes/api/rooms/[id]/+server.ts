@@ -19,8 +19,11 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 
 		const fetchedRoom = await room
 			.findOne({ _id: new mongoose.Types.ObjectId(id), members: _id })
-			.populate('members', '_id username avatar')
+			.populate({
+				path: 'members', select: { _id: true, username: true, avatar: true }
+			})
 			.lean();
+
 		const messages = await message
 			.find({ room: new mongoose.Types.ObjectId(id) })
 			.lean()

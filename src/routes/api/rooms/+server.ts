@@ -18,8 +18,21 @@ export const GET: RequestHandler = async ({ cookies }: RequestEvent) => {
 
 		const rooms = await room
 			.find({ members: _id })
-			.populate('members', '_id username avatar')
+			.populate([
+				{
+					path: 'members', select: { _id: true, username: true, avatar: true }
+				},
+				{
+					path: 'lastMessage',
+					populate: {
+						path: "sender",
+						model: "User",
+						select: { _id: true, username: true, avatar: true }
+					}
+				}
+			])
 			.lean().sort({ updatedAt: -1 });
+		console.log("room", rooms);
 
 		// for (let room of rooms) {
 		// 	const lastMessage = await message.findOne({ room: room._id }).sort({ createdAt: -1 }).populate("sender");

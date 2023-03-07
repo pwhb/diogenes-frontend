@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { type ObjectId } from 'mongoose';
 import user from './user';
 
 const { Schema, model, models } = mongoose;
