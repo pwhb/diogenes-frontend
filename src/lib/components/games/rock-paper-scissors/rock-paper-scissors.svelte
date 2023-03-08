@@ -1,14 +1,17 @@
 <script>
+	import { page } from '$app/stores';
 	import { gameState } from '$lib/store/game';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 
 	console.log($gameState);
+	const { game, user } = $page.data;
 	const availableChoices = {
 		rock: 'rock',
 		paper: 'paper',
 		scissors: 'scissors'
 	};
+	const isLeft = game.players[0]._id === user._id;
 	// @ts-ignore
 	const onTap = (choice) => {
 		console.log(choice);
