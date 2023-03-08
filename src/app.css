@@ -33,6 +33,27 @@
 	}
 }
 
+.size-changing {
+	animation: size-animation 2s infinite;
+}
+
+@keyframes size-animation {
+	0% {
+		transform: scale(0.5);
+		rotate: 15deg;
+	}
+
+	50% {
+		transform: scale(1);
+		rotate: -15deg;
+	}
+
+	100% {
+		transform: scale(0.5);
+		rotate: 15deg;
+	}
+}
+
 .spinner {
 	animation: rotate 0.8s infinite;
 }

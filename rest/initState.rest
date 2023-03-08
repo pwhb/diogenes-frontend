@@ -14,11 +14,13 @@ GET {{localhost_url}}/api/templates
 POST {{localhost_url}}/api/initState
 Content-Type: application/json
 
-{
-    "slug": "guess-the-number",
+{     
+    "slug": "rock-paper-scissors",
     "state": {
-        "secretNumber": 54,
-        "guesses": []
+        "choices": [],
+        "scores": [],
+        "isPlaying": true,
+        "winner": ""
     }
 }
 

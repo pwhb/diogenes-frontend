@@ -1,91 +1,36 @@
 <script>
-	import { onMount } from "svelte";
+	import { gameState } from '$lib/store/game';
+	import Icon from '@iconify/svelte';
+	import { onMount } from 'svelte';
 
-
-	const state = {
-		topLeft: false,
-		topRight: false,
-		bottomLeft: false,
-		bottomRight: false,
-		leftKissing: false,
-		rightKissing: false
-	};
-
-	const svg = {
-		watching: '/games/kissnbliss/eyes.svg',
-		normal: '/games/kissnbliss/normal.svg',
-		kissing: '/games/kissnbliss/kiss.svg',
-		smiling: '/games/kissnbliss/smile.svg',
-		ready: '/games/kissnbliss/ready.svg',
-		heart: '/games/kissnbliss/heart.svg'
-	};
-
-	const competitive = false;
-
-	const startKissing = () => {
-		console.log('start kissing');
-	};
-
-	const stopKissing = () => {
-		console.log('stop kissing');
-	};
+	console.log($gameState);
 
 	onMount(() => {
-		console.log("rps")
-	})
+		console.log('rps');
+	});
 </script>
 
-<div class="text-center">
-	<p>rock paper scissors</p>
-	<div class="grid grid-cols-3">
-		<div class="mx-auto p-2 -scale-x-100">
-			<img
-				src={state.topLeft ? svg.watching : svg.normal}
-				class={competitive ? 'w-16' : 'invisible'}
-				alt="topLeft"
-			/>
+<div class="flex flex-col flex-grow">
+	<div class="flex flex-col flex-grow justify-between items-center my-20">
+		<div class="rotate-180">
+			<Icon width={'80'} class="size-changing" icon="noto:waving-hand-medium-light-skin-tone" />
 		</div>
-		<div class="mx-auto p-2" />
-		<div class="mx-auto p-2">
-			<img
-				src={state.topRight ? svg.watching : svg.normal}
-				class={competitive ? 'w-16' : 'invisible'}
-				alt="topRight"
-			/>
-		</div>
-		<div class="mx-auto p-2" />
-		<div class="flex flex-row justify-center">
-			<img
-				src={state.leftKissing ? svg.kissing : svg.smiling}
-				class={state.leftKissing ? 'w-16' : 'w-16 -scale-x-100'}
-				alt="topLeft"
-			/>
-			<img src={state.rightKissing ? svg.kissing : svg.smiling} class="w-16" alt="topLeft" />
-		</div>
-		<div class="mx-auto p-2" />
-		<div class="mx-auto p-2 -scale-x-100">
-			<img
-				src={state.bottomLeft ? svg.watching : svg.normal}
-				class={competitive ? 'w-16' : 'invisible'}
-				alt="bottomLeft"
-			/>
-		</div>
-		<div class="mx-auto p-2" />
-		<div class="mx-auto p-2">
-			<img
-				src={state.bottomRight ? svg.watching : svg.normal}
-				class={competitive ? 'w-16' : 'invisible'}
-				alt="bottomLeft"
-			/>
+
+		<Icon width={'24'} icon="noto-v1:vs-button" />
+		<div>
+			<Icon width={'80'} class="size-changing" icon="noto:waving-hand-medium-light-skin-tone" />
 		</div>
 	</div>
 
-	<button
-		class="btn btn-outline hover:bg-red-500 w-full h-16"
-		on:mousedown={startKissing}
-		on:mouseup={stopKissing}
-		on:touchstart={startKissing}
-		on:touchend={stopKissing}
-		><img class="h-12" src="/games/kissnbliss/kiss-button.svg" alt="" /></button
-	>
+	<div class="flex flex-row gap-10 items-center justify-center mb-20">
+		<button class="hover:scale-125 -rotate-12">
+			<Icon width={'54'} icon="noto:raised-fist-medium-light-skin-tone" />
+		</button>
+		<button class="hover:scale-125">
+			<Icon width={'54'} icon="noto:hand-with-fingers-splayed-medium-light-skin-tone" />
+		</button>
+		<button>
+			<Icon class="hover:scale-125 rotate-12" width={'54'} icon="noto:victory-hand-medium-light-skin-tone" />
+		</button>
+	</div>
 </div>

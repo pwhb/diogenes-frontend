@@ -10,7 +10,8 @@ export interface IGameTemplate {
 	description: string;
 	howToPlay: string;
 	icon: string;
-	isActive: boolean
+	isActive: boolean;
+	canPlayWithAI: boolean;
 }
 
 const gameTemplateSchema = new Schema<IGameTemplate>(
@@ -22,7 +23,8 @@ const gameTemplateSchema = new Schema<IGameTemplate>(
 		description: { type: String },
 		howToPlay: { type: String },
 		icon: { type: String },
-		isActive: { type: Boolean, default: true }
+		isActive: { type: Boolean, default: true },
+		canPlayWithAI: { type: Boolean, default: false }
 	},
 	{ timestamps: true }
 );
