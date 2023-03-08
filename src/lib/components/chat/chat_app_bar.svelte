@@ -3,8 +3,9 @@
 	import { page } from '$app/stores';
 	import { getTheOtherUser } from '$lib/utils/get';
 	import Icon from '@iconify/svelte';
+	import SmallAvatar from '../common/small_avatar.svelte';
 	const { room, user } = $page.data;
-	const otherUser = getTheOtherUser(room.members, user._id)
+	const otherUser = getTheOtherUser(room.members, user._id);
 
 	const goBack = () => {
 		const path = '/home/chat';
@@ -19,7 +20,10 @@
 		</button>
 	</div>
 	<div class="navbar-center">
-		<a class="normal-case text-xl" href={`/users/${otherUser._id}`}>{otherUser.username}</a>
+		<div class="flex flex-row gap-3 items-center justify-center">
+			<SmallAvatar user={otherUser} />
+			<a class="font-medium" href={`/users/${otherUser._id}`}>{otherUser.username}</a>
+		</div>
 	</div>
 	<div class="navbar-end">
 		<!-- <button class="btn btn-ghost btn-circle">

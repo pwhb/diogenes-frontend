@@ -29,7 +29,7 @@
 			chatInput = '';
 		}
 	};
-
+	const timeoutms = 2000
 	let timeout: any;
 	let typing = false;
 	const timeoutFunction = () => {
@@ -40,21 +40,25 @@
 
 	const onKeyDownNotEnter = () => {
 		if (typing) {
-		
 			clearTimeout(timeout);
-			timeout = setTimeout(timeoutFunction, 1000);
+			timeout = setTimeout(timeoutFunction, timeoutms);
 		} else {
 			typing = true;
 			console.log('start', user);
 			socket.emit('start-typing', { roomId: room._id, username: user.username });
-			timeout = setTimeout(timeoutFunction, 1000);
+			timeout = setTimeout(timeoutFunction, timeoutms);
 		}
 	};
 </script>
 
 <div class="max-w-xl w-full bg-base-100 mx-auto">
 	{#if $typingUser && $typingUser !== user.username}
-		<p>{$typingUser} is typing ...</p>
+		<p class="mx-4 h-10">
+			<Icon class="inline-block" icon="material-symbols:keyboard" />
+			<span class="font-medium text-success"
+				>{$typingUser}</span
+			> is typing <span class="typing-dots">...</span>
+		</p>
 	{/if}
 	<form on:submit|preventDefault={onSend}>
 		<div class="form-control w-full">

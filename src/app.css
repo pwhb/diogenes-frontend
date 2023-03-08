@@ -47,6 +47,20 @@
 	}
 }
 
+.typing-dots {
+	animation: typing-animation 0.8s infinite;
+}
+
+@keyframes typing-animation {
+	0% {
+		font-size: xx-small;
+	}
+
+	100% {
+		font-size: larger;
+	}
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
