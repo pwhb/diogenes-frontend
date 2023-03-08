@@ -1,7 +1,9 @@
 <script>
 	import { page } from '$app/stores';
+	import SmallAvatar from '$lib/components/common/small_avatar.svelte';
 	import Icon from '@iconify/svelte';
 	const { game } = $page.data;
+	console.log('game', game);
 </script>
 
 <div class="navbar bg-base-100">
@@ -10,9 +12,22 @@
 			<Icon icon="ic:baseline-arrow-back-ios" width="24" />
 		</a>
 	</div>
-	<div class="navbar-center">
-		<div>{game.template.name}</div>
-		<!-- <a class="normal-case text-xl" href="/">{getTheOtherUser(room.members, user._id).username}</a> -->
+	<div class="navbar-center gap-5">
+		<div class="flex flex-row gap-3 items-center">
+			<div>
+				<!-- <p class="text-xs font-medium text-center">0</p> -->
+				<p class="text-xs font-medium">{game.players[0].username}</p>
+			</div>
+			<SmallAvatar user={game.players[0]} />
+		</div>
+		<div class="shadow-lg font-medium text-error">`{game.template.name}`</div>
+		<div class="flex flex-row gap-3 items-center">
+			<SmallAvatar user={game.players[1]} />
+			<div>
+				<!-- <p class="text-xs font-medium text-center">0</p> -->
+				<p class="text-xs font-medium">{game.players[1].username}</p>
+			</div>
+		</div>
 	</div>
 	<div class="navbar-end">
 		<!-- <button class="btn btn-ghost btn-circle">

@@ -27,7 +27,7 @@ export const GET: RequestHandler = async ({ cookies }: RequestEvent) => {
 					populate: {
 						path: "sender",
 						model: "User",
-						select: { _id: true, username: true, avatar: true }
+						select: { _id: true, username: true }
 					}
 				}
 			])
