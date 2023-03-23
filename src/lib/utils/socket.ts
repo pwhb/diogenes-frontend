@@ -14,3 +14,9 @@ export const sendMessage = (
 		store.update((val) => [...val, res as never]);
 	});
 };
+
+export const seeMessage = (messageId: ObjectId, seenBy: ObjectId) => {
+	socket.emit("update-message", { messageId, seenBy }, (res: any) => {
+		console.log("update-message", res);
+	})
+}

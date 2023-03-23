@@ -27,9 +27,11 @@ export const GET: RequestHandler = async ({ cookies, params }: RequestEvent) => 
 		const messages = await message
 			.find({ room: new mongoose.Types.ObjectId(id) })
 			.lean()
-			.populate({
+			.populate([{
 				path: 'sender',
-			})
+			}, {
+				path: 'seenBy',
+			}])
 
 		if (!fetchedRoom) {
 			return json({ success: false, error: 'unauthorized' }, { status: 401 });

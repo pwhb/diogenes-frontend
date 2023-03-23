@@ -26,6 +26,10 @@ socket.on('update-state', (state: any) => {
     gameState.set(state)
 });
 
+socket.on('update-message', (message: any) => {
+    console.log("update-message", message)
+});
+
 socket.on("on-start-typing", (username: any) => {
     console.log("on start typing");
     typingUser.set(username)

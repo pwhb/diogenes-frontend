@@ -15,6 +15,7 @@ export interface IMessage {
 	createdAt: Date;
 	game?: IGame;
 	inGame: boolean;
+	seenBy: ObjectId[]
 }
 
 const messageSchema = new Schema<IMessage>(
@@ -41,6 +42,11 @@ const messageSchema = new Schema<IMessage>(
 		inGame: {
 			type: Boolean,
 			default: false
+		},
+		seenBy: {
+			type: [Schema.Types.ObjectId],
+			default: [],
+			ref: user.modelName
 		}
 	},
 	{ timestamps: true }
