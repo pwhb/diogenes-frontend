@@ -1,50 +1,62 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
-import user from '$lib/models/user';
 import { verify } from 'argon2';
-import dbConnect from '$lib/database/connectDB';
 import { getJwt } from '$lib/utils/jwt';
+import clientPromise from '$lib/database/mongodb';
+import { DB_NAME } from '$env/static/private';
+import DBKeys from '$lib/consts/DBKeys';
 
-export const load: PageServerLoad = async ({ locals }) => {
-	if (locals.user) {
+export const load: PageServerLoad = async ({ locals }) =>
+{
+	if (locals.user)
+	{
 		throw redirect(302, '/home');
 	}
 };
 
-const login: Action = async ({ request, cookies }) => {
+const login: Action = async ({ request, cookies }) =>
+{
 	const data = await request.formData();
 	const { username, password } = Object.fromEntries(data);
 
 	const invalid = { username: '', password: '' };
 	const previous = { username };
-	if (!username) {
+	if (!username)
+	{
 		invalid.username = 'username cannot be empty';
 	}
-	if (!password) {
+	if (!password)
+	{
 		invalid.password = 'password cannot be empty';
 	}
 
-	if (invalid.username || invalid.password) {
+	if (invalid.username || invalid.password)
+	{
 		return fail(400, { invalid, previous });
 	}
 
-	await dbConnect();
+	const client = await clientPromise;
+	const col = client.db(DB_NAME).collection(DBKeys.UserCollection);
 
-	const oldUser = await user.findOne({ username });
-	if (!oldUser) {
+	const doc = await col.findOne({ username });
+	if (!doc)
+	{
 		invalid.username = "user doesn't exist";
 		return fail(400, { invalid, previous });
 	}
 
-	const isCorrect = await verify(oldUser.password, password as string);
+	const isCorrect = await verify(doc.password, password as string);
 
-	if (!isCorrect) {
+	if (!isCorrect)
+	{
 		invalid.password = 'wrong password';
 		return fail(400, { invalid, previous });
 	}
-	const { _id, role, avatar, bio } = oldUser;
 
-	const token = getJwt({ _id, username, role, avatar, bio });
+
+	const token = getJwt({
+		_id: doc._id, username: doc.username
+	});
 
 	cookies.set('token', token, {
 		httpOnly: true,

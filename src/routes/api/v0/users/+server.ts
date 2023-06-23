@@ -42,7 +42,7 @@ export const PATCH: RequestHandler = async ({ request, cookies }: RequestEvent) 
 		await dbConnect();
 
 		const { _id, username, role, avatar, bio } = await user.findByIdAndUpdate(oldUser._id, update, { new: true })
-		const token = getJwt({ _id, username, role, avatar, bio });
+		const token = getJwt({ _id, username });
 
 		cookies.set('token', token, {
 			httpOnly: true,

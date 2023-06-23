@@ -4,6 +4,11 @@
 
 @prod_url = https://diogenes.vercel.app/
 
+###
+GET {{localhost_url}}/api/v0/avatars
+
+###
+GET {{localhost_url}}/api/v1/avatars
 
 ###
 GET {{localhost_url}}/api/v0/chat 

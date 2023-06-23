@@ -19,7 +19,7 @@ export interface IUser {
 	// followed: [];
 	// following: [];
 	// token: string;
-	_id: ObjectId;
+	_id: string;
 }
 
 const userSchema = new Schema<IUser>(

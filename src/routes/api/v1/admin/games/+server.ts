@@ -1,29 +1,22 @@
-import dbConnect from '$lib/database/connectDB';
-import gameTemplate from '$lib/models/gameTemplate';
+import { DB_NAME } from '$env/static/private';
+import DBKeys from '$lib/consts/DBKeys';
+import clientPromise from '$lib/database/mongodb';
+import { json, type RequestHandler } from '@sveltejs/kit';
 
-import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
+export const GET: RequestHandler = async () =>
+{
+	try
+	{
+		const client = await clientPromise;
+		const col = client.db(DB_NAME).collection(DBKeys.GameTemplateCollection);
 
-export const GET: RequestHandler = async () => {
-	try {
-		await dbConnect();
-		const templates = await gameTemplate.find({}).select({}).lean();
-		return json({ data: templates }, { status: 200 });
-	} catch (err) {
+		const docs = await col.find({}, { projection: {} }).toArray();
+		return json({ data: docs }, { status: 200 });
+	} catch (err)
+	{
 		console.error(err);
 		return json({ data: [], error: err }, { status: 400 });
 	}
 };
 
-export const POST: RequestHandler = async ({ request }: RequestEvent) => {
-	try {
-		await dbConnect();
-		// const { } = await request.json();
-		// const keys = [''];
 
-		const users = await gameTemplate.find({}).select({}).lean();
-		return json({ data: users }, { status: 200 });
-	} catch (err) {
-		console.error(err);
-		return json({ data: [], error: err }, { status: 400 });
-	}
-};
