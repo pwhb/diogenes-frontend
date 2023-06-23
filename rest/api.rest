@@ -6,10 +6,10 @@
 
 
 ###
-GET {{localhost_url}}/api/chat 
+GET {{localhost_url}}/api/v0/chat 
 
 ###
-POST {{localhost_url}}/api/auth/register HTTP/1.1
+POST {{localhost_url}}/api/v0/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ###
-POST {{localhost_url}}/api/auth/login HTTP/1.1
+POST {{localhost_url}}/api/v0/auth/login HTTP/1.1
 Content-Type: application/json
 
 {

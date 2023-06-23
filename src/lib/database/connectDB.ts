@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
+import { MONGODB_URI } from '$env/static/private';
 import mongoose from 'mongoose';
 
-const MONGODB_URI = import.meta.env.VITE_MONGODB_URI;
 
-if (!MONGODB_URI) {
+
+if (!MONGODB_URI)
+{
 	throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 }
 
@@ -17,30 +19,37 @@ if (!MONGODB_URI) {
 // @ts-ignore
 let cached = global.mongoose;
 
-if (!cached) {
+if (!cached)
+{
 	// @ts-ignore
 	cached = global.mongoose = { conn: null, promise: null };
 }
 
-export default async function dbConnect() {
-	if (cached.conn) {
+export default async function dbConnect()
+{
+	if (cached.conn)
+	{
 		return cached.conn;
 	}
 
-	if (!cached.promise) {
+	if (!cached.promise)
+	{
 		const opts = {
 			bufferCommands: false
 		};
 
 		mongoose.set('strictQuery', false);
-		cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+		cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) =>
+		{
 			return mongoose;
 		});
 	}
 
-	try {
+	try
+	{
 		cached.conn = await cached.promise;
-	} catch (e) {
+	} catch (e)
+	{
 		cached.promise = null;
 		throw e;
 	}

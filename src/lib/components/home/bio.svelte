@@ -4,7 +4,7 @@
 	export let user = $page.data.user;
 </script>
 
-<div class="card w-64 my-2 bg-slate-600 shadow-xl">
+<div class="card w-64 my-2 bg-slate-600 text-white shadow-xl">
 	<div class="card-body font-medium">
 		{#if user.bio}
 			<p>{user.bio}</p>

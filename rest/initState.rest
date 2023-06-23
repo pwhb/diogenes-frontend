@@ -8,10 +8,10 @@
 
 
 ###
-GET {{localhost_url}}/api/templates
+GET {{localhost_url}}/api/v0/templates
 
 ###
-POST {{localhost_url}}/api/initState
+POST {{localhost_url}}/api/v0/initState
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 ###
-PATCH {{localhost_url}}/api/templates/63da34d5a9664afa45e5b626 HTTP/1.1
+PATCH {{localhost_url}}/api/v0/templates/63da34d5a9664afa45e5b626 HTTP/1.1
 Content-Type: application/json
 
 {

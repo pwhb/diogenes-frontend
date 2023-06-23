@@ -13,7 +13,7 @@
 	const onSubmitUserInfo = async () => {
 		formError.username = '';
 		submitLoading = true;
-		const url = '/api/users';
+		const url = '/api/v0/users';
 		const payload = {
 			username,
 			bio

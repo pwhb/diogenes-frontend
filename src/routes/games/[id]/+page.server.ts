@@ -6,7 +6,7 @@ export const load: PageServerLoad = async ({ params, fetch, locals }) => {
 		throw redirect(302, '/welcome/login');
 	}
 	const { id } = params;
-	const url1 = `/api/games/${id}`;
+	const url1 = `/api/v0/games/${id}`;
 	const res1 = await fetch(url1);
 	const data1 = await res1.json();
 	const { success, game, messages } = data1;

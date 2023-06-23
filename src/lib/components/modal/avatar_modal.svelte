@@ -18,7 +18,7 @@
 
 	const onSubmitAvatar = async () => {
 		submitLoading = true;
-		const url = '/api/users';
+		const url = '/api/v0/users';
 		const payload = {
 			avatar: {
 				url: avatarUrl

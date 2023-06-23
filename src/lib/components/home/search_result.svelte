@@ -9,7 +9,7 @@
 	const onClick = async () => {
 		loading = true;
 		if (!alreadyFollowing) {
-			const url = `/api/users/${alreadyFollowing ? 'unfollow' : 'follow'}`;
+			const url = `/api/v0/users/${alreadyFollowing ? 'unfollow' : 'follow'}`;
 
 			const payload = { id: searchedUser._id };
 			const options = {

@@ -13,7 +13,7 @@
 
 	const onJoin = async () => {
 		console.log('onJoin', message);
-		const url = `/api/games/${message.game?._id}`;
+		const url = `/api/v0/games/${message.game?._id}`;
 		const res = await fetch(url);
 		const data = await res.json();
 		console.log(data);

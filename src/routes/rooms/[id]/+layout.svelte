@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import ChatAppBar from '$lib/components/chat/chat_app_bar.svelte';
+	import SocketEvents from '$lib/consts/SocketEvents';
 	import type { IMessage } from '$lib/models/message';
 	import { socket } from '$lib/socketio/socket';
 	import { messagesStore } from '$lib/store/chat';
@@ -11,7 +12,7 @@
 	onMount(() => {
 		messagesStore.set(messages);
 
-		socket.emit('enter-room', { roomId: room._id, userId: user._id }, (res: any) => {
+		socket.emit(SocketEvents.EnterRoom, { roomId: room._id, userId: user._id }, (res: any) => {
 			const lastMessage = $messagesStore[$messagesStore.length - 1] as IMessage;
 			const id = lastMessage._id.toString();
 			scrollIntoView(id);

@@ -7,7 +7,7 @@
 
 	const searchUser = async () => {
 		loading = true
-		const url = `/api/users?q=${searchInput}&active=true`;
+		const url = `/api/v0/users?q=${searchInput}&active=true`;
 		const res = await fetch(url);
 		const { data } = await res.json();
 

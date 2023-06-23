@@ -7,6 +7,7 @@
 	import { sendMessage } from '$lib/utils/socket';
 	import { messagesStore, typingUser } from '$lib/store/chat';
 	import { socket } from '$lib/socketio/socket';
+	import SocketEvents from '$lib/consts/SocketEvents';
 
 	let drawerOpen = false;
 	const { room, user } = $page.data;
@@ -35,18 +36,17 @@
 	const timeoutFunction = () => {
 		console.log('stop', user);
 		typing = false;
-		socket.emit('stop-typing', { roomId: room._id, username: user.username });
+		socket.emit(SocketEvents.StopTyping, { roomId: room._id, username: user.username });
 	};
 
 	const onKeyDownNotEnter = () => {
 		if (typing) {
-		
 			clearTimeout(timeout);
 			timeout = setTimeout(timeoutFunction, 1000);
 		} else {
 			typing = true;
 			console.log('start', user);
-			socket.emit('start-typing', { roomId: room._id, username: user.username });
+			socket.emit(SocketEvents.StartTyping, { roomId: room._id, username: user.username });
 			timeout = setTimeout(timeoutFunction, 1000);
 		}
 	};

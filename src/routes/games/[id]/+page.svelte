@@ -7,6 +7,7 @@
 	import KissAndBliss from '$lib/components/games/kiss-and-bliss/kiss-and-bliss.svelte';
 
 	import RockPaperScissors from '$lib/components/games/rock-paper-scissors/rock-paper-scissors.svelte';
+	import SocketEvents from '$lib/consts/SocketEvents';
 
 	import { socket } from '$lib/socketio/socket';
 
@@ -20,7 +21,7 @@
 	onMount(() => {
 		gameMessagesStore.set(messages);
 
-		socket.emit('enter-room', { roomId: game._id, userId: user._id }, (res: any) => {
+		socket.emit(SocketEvents.EnterRoom, { roomId: game._id, userId: user._id }, (res: any) => {
 			console.log(res);
 		});
 		console.log('before start', { room: game._id, slug: game.template.slug });

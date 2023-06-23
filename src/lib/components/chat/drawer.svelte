@@ -16,7 +16,7 @@
 		room: ObjectId;
 	}) => {
 		drawerLoading = true;
-		const url = '/api/games';
+		const url = '/api/v0/games';
 		const options = {
 			method: 'POST',
 			body: JSON.stringify(payload)
