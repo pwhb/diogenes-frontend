@@ -1,6 +1,6 @@
 import dbConnect from '$lib/database/connectDB';
 import gameTemplate from '$lib/models/gameTemplate';
-import { getUpdateDocument, validateBody } from '$lib/utils/validate';
+import { updateBody, validateBody } from '$lib/utils/validate';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 
 export const PATCH: RequestHandler = async ({ request, params }: RequestEvent) => {
@@ -10,7 +10,7 @@ export const PATCH: RequestHandler = async ({ request, params }: RequestEvent) =
 		const body = await request.json();
 
 		const keys = ['name', 'modes', 'playerCounts', 'description', 'howToPlay', 'icon'];
-		const update = getUpdateDocument(body, keys);
+		const update = updateBody(body, keys);
 
 		const template = await gameTemplate.findByIdAndUpdate(id, update, { new: true });
 

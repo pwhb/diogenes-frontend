@@ -3,10 +3,11 @@ import gameTemplate from './gameTemplate';
 
 const { Schema, model, models } = mongoose;
 
-export interface IInitialState {
+export interface IInitialState
+{
     _id: ObjectId;
     slug: string,
-    state: {}
+    state: any;
 }
 
 const initialStateSchema = new Schema<IInitialState>(

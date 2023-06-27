@@ -1,7 +1,7 @@
 import dbConnect from '$lib/database/connectDB';
 import user, { type IUser } from '$lib/models/user';
 import { decodeJwt, getJwt } from '$lib/utils/jwt';
-import { getUpdateDocument } from '$lib/utils/validate';
+import { updateBody } from '$lib/utils/validate';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url, locals }: RequestEvent) => {
@@ -38,7 +38,7 @@ export const PATCH: RequestHandler = async ({ request, cookies }: RequestEvent) 
 		if (body.avatar && body.avatar.url) {
 			body.avatar.url = body.avatar.url.replace("http://localhost:5173", "https://diogenes-web-git-test-pwhb.vercel.app")
 		}
-		const update = getUpdateDocument(body, keys)
+		const update = updateBody(body, keys)
 		await dbConnect();
 
 		const { _id, username, role, avatar, bio } = await user.findByIdAndUpdate(oldUser._id, update, { new: true })

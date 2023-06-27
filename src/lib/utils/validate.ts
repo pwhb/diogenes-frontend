@@ -7,7 +7,7 @@ export const validateBody = (body: any, keys: string[]) => {
 	return true;
 };
 
-export const getUpdateDocument = (body: any, keys: string[]) => {
+export const updateBody = (body: any, keys: string[]) => {
 	const update: any = {};
 	for (let key of keys) {
 		if (body[key] !== null) {

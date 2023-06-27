@@ -5,6 +5,11 @@ enum DBKeys
     GameTemplateCollection = "game_templates",
     AvatarCollection = "avatars",
     FollowingCollection = "followings",
+    InitialStateCollection = "initial_states",
+    MessageCollection = "messages",
+    GameCollection = "games",
+    RoomCollection = "rooms",
+
 }
 
 export default DBKeys;

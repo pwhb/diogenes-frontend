@@ -1,7 +1,7 @@
 import dbConnect from '$lib/database/connectDB';
 import user from '$lib/models/user';
 import { getJwt } from '$lib/utils/jwt';
-import { getUpdateDocument } from '$lib/utils/validate';
+import { updateBody } from '$lib/utils/validate';
 import { json, type RequestEvent, type RequestHandler } from '@sveltejs/kit';
 
 

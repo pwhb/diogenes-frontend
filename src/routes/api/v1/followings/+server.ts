@@ -36,7 +36,7 @@ export const GET: RequestHandler = async ({ cookies, url }: RequestEvent) =>
 
 		return json({
 			success: true,
-			user: id,
+			userId: id,
 			followers,
 			followings
 		}, { status: 200 });
